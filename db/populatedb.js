@@ -29,7 +29,7 @@ VALUES
     ('ChewyChops', '', 1.50, 14),
     ('Vanilla Pops', '6 bars', 3.25, 8),
     ('DuraSmell', '8 AAA', 4.10, 3),
-    ('CottonWrecks', '12 Roll', 8.00, 48)
+    ('CottonWrecks', '12 Roll', 8.00, 48);
      
 CREATE TABLE IF NOT EXISTS item_categories (
 item_id INTEGER REFERENCES items(id),
@@ -48,10 +48,12 @@ VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.DB_CONNECTION,
+    connectionString: process.argv[2],
   });
   await client.connect();
   await client.query(SQL);
   await client.end();
   console.log("done");
 }
+
+main();
