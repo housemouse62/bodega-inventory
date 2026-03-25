@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title><%= items.category_name %></title>
+  </head>
+  <body>
+    <h1><%= items.category_name %></h1>
+    <ul>
+      <% items.forEach((item) => { %>
+        <h2><%= item.item_name %></h2>
+        <a href="<%= `/itemPage/${items.item_id}`%>">Open</a>
+        <% }); %>
+            
+    </ul>
+    <footer>
+      <a href="/">Home</a>
+    </footer>
+  </body>
+</html>
