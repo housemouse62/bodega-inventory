@@ -17,4 +17,14 @@ async function viewAllItemsGet(req, res) {
     items: items,
   });
 }
-export { viewItemDetailsGet, viewAllItemsGet };
+
+async function deleteItem(req, res) {
+  const itemID = req.params.id;
+  await db.deleteItem(itemID);
+  const items = await db.getAllItems();
+  res.render("allItemsPage", {
+    title: "All items",
+    items: items,
+  });
+}
+export { viewItemDetailsGet, viewAllItemsGet, deleteItem };
