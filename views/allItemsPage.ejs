@@ -6,6 +6,7 @@
     <ul>
       <% items.forEach((item) => { %>
         <h3><%= item.name %></h3>
+        <a href="/items/<%= item.id %>?from=/items">View Item</a>
         <% }); %>      
     </ul>
     <footer>

@@ -5,6 +5,7 @@ import itemsRouter from "./routes/itemsRouter.js";
 import categoriesRouter from "./routes/categoriesRouter.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import methodOverride from "method-override";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.use("/", indexRouter);
 app.use("/category", categoriesRouter);

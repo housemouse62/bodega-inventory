@@ -7,6 +7,7 @@ async function viewItemDetailsGet(req, res) {
   res.render("itemPage", {
     title: `${items.item_name}`,
     items: items,
+    from: req.query.from || "/",
   });
 }
 
@@ -21,10 +22,6 @@ async function viewAllItemsGet(req, res) {
 async function deleteItem(req, res) {
   const itemID = req.params.id;
   await db.deleteItem(itemID);
-  const items = await db.getAllItems();
-  res.render("allItemsPage", {
-    title: "All items",
-    items: items,
-  });
+  res.redirect(req.query.redirect || "/");
 }
 export { viewItemDetailsGet, viewAllItemsGet, deleteItem };

@@ -12,6 +12,9 @@
         <h4>In Stock: <%= items[0].item_stock %></h4>
         <h5><%= items[0].item_sku %></h5> 
         <img src="/images/<%= items[0].image_url %>" alt="<%=items[0].item_name %>">
+        <form method="POST" action="/items/<%= items[0].item_id %>?_method=DELETE&redirect=<%= from %>">
+          <BUTTON TYPE="submit">Delete Item</BUTTON>
+        </form>
     </ul>
     <footer>
       <a href="/">Home</a>

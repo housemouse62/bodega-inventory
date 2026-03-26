@@ -7,6 +7,7 @@ async function viewAllCategoryItemsGet(req, res) {
   res.render("categoryPage", {
     title: `All ${items.category_name}Items`,
     items: items,
+    categoryID: categoryID,
   });
 }
 
