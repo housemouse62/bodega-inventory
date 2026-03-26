@@ -30,10 +30,24 @@ async function deleteItem(id) {
   await pool.query("DELETE FROM item_categories WHERE item_id = $1", [id]);
   await pool.query("DELETE FROM items WHERE items.id = $1", [id]);
 }
+
+async function addItem(name, size, price, stock, image_url, category, itemID) {
+  const result = await pool.query(
+    "INSERT INTO items (name, size, price, stock, image_url) VALUES ($1, $2, $3, $4, $5)",
+    [name, size, price, stock, image_url],
+  );
+  const newItemID = result.rows[0].id;
+  await pool.query("INSERT INTO item_categories ($1, $2)", [
+    newItemID,
+    category,
+  ]);
+}
+
 export default {
   getAllCategories,
   getAllCategoryItems,
   getItemDetails,
   getAllItems,
   deleteItem,
+  addItem,
 };

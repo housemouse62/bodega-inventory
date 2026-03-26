@@ -24,4 +24,20 @@ async function deleteItem(req, res) {
   await db.deleteItem(itemID);
   res.redirect(req.query.redirect || "/");
 }
-export { viewItemDetailsGet, viewAllItemsGet, deleteItem };
+
+async function addItem(req, res) {
+  const { name, size, price, stock, image_url, category } = req.body;
+  await db.addItem(name, size, price, stock, image_url, category);
+  res.redirect(req.query.redirect || "/");
+}
+
+async function addItemShowForm(req, res) {
+  res.render("newItemForm");
+}
+export {
+  viewItemDetailsGet,
+  viewAllItemsGet,
+  deleteItem,
+  addItem,
+  addItemShowForm,
+};

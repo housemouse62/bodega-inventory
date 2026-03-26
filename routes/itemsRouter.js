@@ -4,9 +4,13 @@ import {
   viewItemDetailsGet,
   viewAllItemsGet,
   deleteItem,
+  addItem,
+  addItemShowForm,
 } from "../controllers/itemsController.js";
 
 itemsRouter.get("/", viewAllItemsGet); // view list of all items? or grid?
+itemsRouter.get("/new", addItemShowForm);
+itemsRouter.post("/new", addItem);
 itemsRouter.get("/:id", viewItemDetailsGet); //view individual item details
-itemsRouter.delete("/:id", deleteItem);
+itemsRouter.delete("/:id", deleteItem); //
 export default itemsRouter;
