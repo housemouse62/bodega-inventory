@@ -11,7 +11,8 @@ VALUES
     ('Frozen Food'),
     ('Snacks'),
     ('Drinks'),
-    ('Home Goods');
+    ('Home Goods'),
+    ('Uncategorized');
 
 CREATE TABLE IF NOT EXISTS items (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -72,8 +73,12 @@ VALUES
     ('QuickClean Sponges', '6 pack', 4.25, 42, 'QuickClean.jpeg'),
     ('Everybody''s PowerClean Pods', '40 count', 10.50, 28, 'PowerClean.jpeg'),
     ('AllPurpose Cleaner Spray', '32 oz', 4.99, 35, 'AllPurpose.jpeg'),
-    ('FreshAir Room Spray', '9 oz', 5.75, 30, 'FreshAir.jpeg');
+    ('FreshAir Room Spray', '9 oz', 5.75, 30, 'FreshAir.jpeg'),
      
+    -- Uncategorized
+    ('Everybody''s 3-Person Water Balloon Launcher', '1', 12.99, 9, 'Water_Balloon.jpeg'),
+    ('Remote Control Blimp', '1', 34.99, 2, 'Blimp.jpeg');
+
 CREATE TABLE IF NOT EXISTS item_categories (
 item_id INTEGER REFERENCES items(id),
 category_id INTEGER REFERENCES categories(id)
@@ -96,6 +101,9 @@ VALUES
     -- Home Goods (items 31-40)
     (31, 4), (32, 4), (33, 4), (34, 4), (35, 4),
     (36, 4), (37, 4), (38, 4), (39, 4), (40, 4),
+
+    -- Uncategorized (items 41 - 42)
+    (41, 5), (42, 5),
     
     -- Crossover: Frozen + Snacks
     (1, 2),  -- Frost Pops
