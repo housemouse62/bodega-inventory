@@ -1,6 +1,4 @@
 import "dotenv/config";
-console.log("DB_CONNECTION:", process.env.DB_CONNECTION);
-
 import express from "express";
 import indexRouter from "./routes/indexRouter.js";
 import itemsRouter from "./routes/itemsRouter.js";
@@ -19,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 app.use("/category", categoriesRouter);
-// app.use("/items", itemsRouter);
+app.use("/items", itemsRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {

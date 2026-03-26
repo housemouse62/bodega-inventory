@@ -7,7 +7,7 @@
     <ul>
       <% items.forEach((item) => { %>
         <h2><%= item.item_name %></h2>
-        <a href="<%= `/itemPage/${items.item_id}`%>">Open</a>
+        <a href="<%= `/items/${item.item_id}`%>">Open</a>
         <% }); %>
             
     </ul>
