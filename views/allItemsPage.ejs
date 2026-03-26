@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title><%= items.title %></title>
+  </head>
+  <body>
+    <ul>
+      <% items.forEach((item) => { %>
+        <h3><%= item.name %></h3>
+        <% }); %>      
+    </ul>
+    <footer>
+      <a href="/">Home</a>
+    </footer>
+  </body>
+</html>

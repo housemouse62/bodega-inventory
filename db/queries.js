@@ -21,4 +21,14 @@ async function getItemDetails(id) {
   return rows;
 }
 
-export default { getAllCategories, getAllCategoryItems, getItemDetails };
+async function getAllItems() {
+  const { rows } = await pool.query("SELECT * FROM items");
+  return rows;
+}
+
+export default {
+  getAllCategories,
+  getAllCategoryItems,
+  getItemDetails,
+  getAllItems,
+};

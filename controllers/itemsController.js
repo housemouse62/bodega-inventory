@@ -10,4 +10,11 @@ async function viewItemDetailsGet(req, res) {
   });
 }
 
-export { viewItemDetailsGet };
+async function viewAllItemsGet(req, res) {
+  const items = await db.getAllItems();
+  res.render("allItemsPage", {
+    title: "All items",
+    items: items,
+  });
+}
+export { viewItemDetailsGet, viewAllItemsGet };
