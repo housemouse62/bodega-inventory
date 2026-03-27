@@ -8,6 +8,7 @@ async function viewItemDetailsGet(req, res) {
     title: `${items.item_name}`,
     items: items,
     from: req.query.from || "/",
+    categoryName: req.query.categoryName,
   });
 }
 
@@ -22,13 +23,11 @@ async function viewAllItemsGet(req, res) {
 async function confirmDeleteItem(req, res) {
   const itemID = req.params.id;
   const item = await db.getItemDetails(itemID);
-  //   console.log("itemID", itemID);
-  //   console.log("item", item);
-  //   console.log("item title", item[0].item_name);
   res.render("confirmDelete", {
     title: `${item[0].item_name}`,
     item: item,
     from: req.query.from || "/",
+    categoryName: req.query.categoryName,
   });
 }
 
@@ -41,7 +40,8 @@ async function deleteItem(req, res) {
     res.render("itemDeleted", {
       title: `${item[0].item_name}`,
       item: item,
-      from: req.params.from || "/",
+      from: req.query.from || "/",
+      categoryName: req.query.categoryName || "",
     });
   } else {
     const errors = "Invalid Password";
@@ -49,7 +49,8 @@ async function deleteItem(req, res) {
       title: `${item[0].item_name}`,
       item: item,
       errors: errors,
-      from: req.params.from || "/",
+      from: req.query.from || "/",
+      categoryName: req.query.categoryName,
     });
   }
 }

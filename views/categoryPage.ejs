@@ -10,7 +10,7 @@
     <ul>
       <% items.forEach((item) => { %>
         <h2><%= item.item_name %></h2>
-        <a href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>">View Item</a>
+        <a href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>">View Item</a>
         <% }); %>
             
     </ul>
