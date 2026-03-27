@@ -20,7 +20,7 @@ name VARCHAR ( 255 ) NOT NULL,
 size VARCHAR ( 255 ),
 price DEC(10, 2) NOT NULL,
 stock INTEGER DEFAULT 0,
-image_url VARCHAR ( 255 ),
+image_url VARCHAR ( 255 ) DEFAULT NULL,
 SKU VARCHAR ( 255 ) GENERATED ALWAYS AS ('SKU-' || id::text) STORED,
 CONSTRAINT chk_PriceStock CHECK (price >= 0 AND stock >= 0)
 );

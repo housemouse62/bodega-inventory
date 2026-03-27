@@ -3,17 +3,43 @@
     <title>Add New Item</title>
   </head>
   <body>
+    <%- include("../partials/formErrors.ejs") %>
     <form method="POST" action="/items/new">
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" />
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= locals.formData?.name || '' %>"
+      />
       <label for="size">Size</label>
-      <input type="text" id="size" name="size" />
+      <input
+        type="text"
+        id="size"
+        name="size"
+        value="<%= locals.formData?.size || '' %>"
+      />
       <label for="price">Price</label>
-      <input type="text" id="price" name="price" />
+      <input
+        type="text"
+        id="price"
+        name="price"
+        value="<%= locals.formData?.price || '' %>"
+      />
       <label for="stock">Stock</label>
-      <input type="text" id="stock" name="stock" />
+      <input
+        type="text"
+        id="stock"
+        name="stock"
+        value="<%= locals.formData?.stock || '' %>"
+      />
       <label for="image_url">Image URL</label>
-      <input type="text" id="image_url" name="image_url" />
+      <input
+        type="text"
+        id="image_url"
+        name="image_url"
+        value="<%= locals.formData?.image_url || '' %>"
+      />
       <label for="category">Category</label>
       <select id="category" name="category">
         <option value="1">Frozen Food</option>
