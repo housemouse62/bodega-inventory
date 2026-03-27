@@ -33,14 +33,14 @@ async function deleteItem(id) {
 
 async function addItem(name, size, price, stock, image_url, category, itemID) {
   const result = await pool.query(
-    "INSERT INTO items (name, size, price, stock, image_url) VALUES ($1, $2, $3, $4, $5)",
+    "INSERT INTO items (name, size, price, stock, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING id",
     [name, size, price, stock, image_url],
   );
   const newItemID = result.rows[0].id;
-  await pool.query("INSERT INTO item_categories ($1, $2)", [
-    newItemID,
-    category,
-  ]);
+  await pool.query(
+    "INSERT INTO item_categories (item_id, category_id) VALUES ($1, $2)",
+    [newItemID, category],
+  );
 }
 
 export default {
