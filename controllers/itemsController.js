@@ -19,10 +19,39 @@ async function viewAllItemsGet(req, res) {
   });
 }
 
+async function confirmDeleteItem(req, res) {
+  const itemID = req.params.id;
+  const item = await db.getItemDetails(itemID);
+  //   console.log("itemID", itemID);
+  //   console.log("item", item);
+  //   console.log("item title", item[0].item_name);
+  res.render("confirmDelete", {
+    title: `${item[0].item_name}`,
+    item: item,
+    from: req.query.from || "/",
+  });
+}
+
 async function deleteItem(req, res) {
   const itemID = req.params.id;
-  await db.deleteItem(itemID);
-  res.redirect(req.query.redirect || "/");
+  const item = await db.getItemDetails(itemID);
+  const pwCorrect = req.body.password === process.env.ADMIN_PASSWORD;
+  if (pwCorrect) {
+    await db.deleteItem(item[0].item_id);
+    res.render("itemDeleted", {
+      title: `${item[0].item_name}`,
+      item: item,
+      from: req.params.from || "/",
+    });
+  } else {
+    const errors = "Invalid Password";
+    return res.status(400).render("confirmDelete", {
+      title: `${item[0].item_name}`,
+      item: item,
+      errors: errors,
+      from: req.params.from || "/",
+    });
+  }
 }
 
 async function addItem(req, res) {
@@ -40,4 +69,5 @@ export {
   deleteItem,
   addItem,
   addItemShowForm,
+  confirmDeleteItem,
 };

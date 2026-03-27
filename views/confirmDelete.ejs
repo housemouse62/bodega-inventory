@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Confirm Delete <%= title %></title>
+  </head>
+  <body>
+    <h1>Confirm Delete Item?</h1>  
+        <h3><%= item[0].item_name %></h3>     
+        <img src="/images/<%= item[0].image_url %>" alt="<%=item[0].item_name %>">
+        <%- include("../partials/errors.ejs") %>
+        <form method="POST" action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"/>
+            <button type="submit">Confirm Delete Item</button>
+        </form>
+    </ul>
+    <footer>
+      <a href="/">Home</a>
+    </footer>
+  </body>
+</html>
