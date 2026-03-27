@@ -12,7 +12,9 @@
         <h4>$<%= items[0].item_price %></h4>      
         <h4>In Stock: <%= items[0].item_stock %></h4>
         <h5><%= items[0].item_sku %></h5> 
-        <img src="/images/<%= items[0].image_url || 'placeholder.jpeg' %>" alt="<%=items[0].item_name %>">
+        <img src="/images/<%= items[0].image_url || 'placeholder.jpg' %>" 
+     alt="<%= items[0].name %>"
+     onerror="this.src='/images/placeholder.jpeg'">
         <a href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&categoryName=<%= categoryName %>">
           Delete Item</a>
         </form>
