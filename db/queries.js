@@ -21,8 +21,10 @@ async function getItemDetails(id) {
   return rows;
 }
 
-async function getAllItems() {
-  const { rows } = await pool.query("SELECT * FROM items");
+async function getAllItems(sortBy) {
+  const allowedSorts = ["name", "price", "stock"];
+  const column = allowedSorts.includes(sortBy) ? sortBy : "name";
+  const { rows } = await pool.query(`SELECT * FROM items ORDER BY ${column}`);
   return rows;
 }
 

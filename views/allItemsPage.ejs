@@ -3,6 +3,9 @@
     <title><%= items.title %></title>
   </head>
   <body>
+    <a href="/items/?sort=name">Sort By Name</a>
+    <a href="/items/?sort=price">Sort By Price</a>
+    <a href="/items/?sort=stock">Sort By Stock</a>
     <ul>
       <% items.forEach((item) => { %>
         <h3><%= item.name %></h3>

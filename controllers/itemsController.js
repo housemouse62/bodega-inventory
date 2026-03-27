@@ -12,7 +12,8 @@ async function viewItemDetailsGet(req, res) {
 }
 
 async function viewAllItemsGet(req, res) {
-  const items = await db.getAllItems();
+  const sortBy = req.query.sort || "name";
+  const items = await db.getAllItems(sortBy);
   res.render("allItemsPage", {
     title: "All items",
     items: items,
