@@ -1,0 +1,106 @@
+@font-face {
+  font-family: "bebas";
+  src: url("/fonts/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: "inter";
+  src: url("/fonts/Inter.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "inter";
+  src: url("/fonts/inter-italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 100 900;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "inter";
+}
+
+body {
+  background-color: #f4e9d8;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.main-header {
+  display: flex;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.small-logo {
+  width: 10rem;
+  border: 1px solid black;
+}
+
+.logo-nav-form {
+  display: flex;
+  padding: 10px;
+}
+
+.nav-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10px;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main-links {
+  text-decoration: none;
+  color: inherit;
+  font-family: "bebas";
+  font-size: 28px;
+}
+
+.index-title {
+  font-family: "bebas";
+  font-size: 3rem;
+}
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* All Category Page */
+.category-grid {
+  display: grid;
+  padding: 1.5rem;
+  grid: 1fr 1fr / 1fr 1fr 1fr;
+  column-gap: 5rem;
+  row-gap: 2rem;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px black solid;
+  padding: 10px 20px;
+  min-height: 15rem;
+}
+
+.category-image {
+  height: 13rem;
+}
+
+/* bodegaRed: '#C43A2F',
+  cream: '#F4E9D8',
+  softBlack: '#2B2B2B',
+  mustard: '#D9A441',
+  bodegaGreen: '#3F6B4B', */
