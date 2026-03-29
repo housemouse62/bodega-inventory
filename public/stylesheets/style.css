@@ -66,6 +66,10 @@ body {
   font-size: 28px;
 }
 
+.open-link {
+  text-decoration: none;
+  color: inherit;
+}
 .index-title {
   font-family: "bebas";
   font-size: 3rem;
@@ -96,6 +100,28 @@ body {
 }
 
 .category-image {
+  height: 13rem;
+}
+
+/* Individual Category Page */
+.items-grid {
+  display: grid;
+  padding: 1.5rem;
+  grid: 1fr 1fr / 1fr 1fr 1fr;
+  column-gap: 5rem;
+  row-gap: 2rem;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px black solid;
+  padding: 10px 20px;
+  min-height: 15rem;
+}
+
+.item-image {
   height: 13rem;
 }
 

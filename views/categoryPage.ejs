@@ -4,19 +4,39 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
-    <h1><%= items.category_name %></h1>
-    <a href="/category/<%= items[0].category_id %>?sort=item_name">Sort By Name</a>
-    <a href="/category/<%= items[0].category_id %>?sort=item_price">Sort By Price</a>
-    <a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort By Stock</a>
-    <ul>
-      <% items.forEach((item) => { %>
-        <h2><%= item.item_name %></h2>
-        <a href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>">View Item</a>
-        <% }); %>
-            
-    </ul>
+    <header class="main-header">
+      <div class="logo-nav-form">
+        <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
+            <div class="nav-form">
+              <nav class="main-nav">
+                  <a class="main-links" href="/categories">Categories</a>
+                  <a class="main-links" href="/items">Items</a>
+              </nav>
+              <%- include("../partials/form.ejs") %>
+            </div>
+      </div>
+    </header>
+    <div class="category-div">
+      <div class="sort-div">
+        <a href="/category/<%= items[0].category_id %>?sort=item_name">Sort By Name</a>
+        <a href="/category/<%= items[0].category_id %>?sort=item_price">Sort By Price</a>            <a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort By Stock</a>
+      </div>
+        <h1><%= items[0].category_name %></h1>
+          <ul class="items-grid">
+            <% items.forEach((item) => { %>
+              <div class="item-card">
+                <h2 class="item-name"><%= item.item_name %></h2>
+                <a href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>">View Item</a>
+                <a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><img class="item-image" src="/images/<%= item.item_url %>"
+                                alt="<%= item.item_name %>"
+                                onerror="this.src='/images/placeholder.jpeg'">
+                        </a>
+              </div>
+            <% }); %> 
+          </ul>
+      </div>
     <footer>
-      <a href="/">Home</a>
+          Application created by Thought Windows
     </footer>
   </body>
 </html>

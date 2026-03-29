@@ -6,7 +6,7 @@
     <body>
         <header class="main-header">
             <div class="logo-nav-form">
-                <img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo">
+                <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
                 <div class="nav-form">
                     <nav class="main-nav">
                         <a class="main-links" href="/categories">Categories</a>
@@ -21,7 +21,7 @@
             <ul class="category-grid">
                 <% categories.forEach((category, index) => { %>
                     <div class="category-card">
-                        <h2><%= category.name %></h2>
+                        <a class='open-link' href="/"><h2><%= category.name %></h2></a>
                         <a class='open-link' href="<%= `/category/${category.id}`%>"><img class="category-image" src="/images/<%= category.name.replace(/\s+/g, '') %>.jpeg" 
                                 alt="<%= category.name %>"
                                 onerror="this.src='/images/placeholder.jpeg'">
