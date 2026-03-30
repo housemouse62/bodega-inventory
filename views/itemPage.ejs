@@ -16,25 +16,26 @@
             </div>
       </div>
     </header>
-    <h1><%= items[0].item_name %></h1>
-    <ul><h3>Categories</h3>
-      
-      <% items.forEach((item) => { %>
-        <h3><%= item.category_name %></h3>
-        <% }); %>      
-        <h4>$<%= items[0].item_price %></h4>      
-        <h4>In Stock: <%= items[0].item_stock %></h4>
-        <h5><%= items[0].item_sku %></h5> 
-        <img src="/images/<%= items[0].image_url || 'placeholder.jpg' %>" 
-     alt="<%= items[0].name %>"
-     onerror="this.src='/images/placeholder.jpeg'">
-        <a href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&categoryName=<%= categoryName %>">
-          Delete Item</a>
-        </form>
-    </ul>
+    <div class="item-div">
+      <a href="<%= from %>">Back to <%= categoryName %></a>
+      <img class="item-image-large" src="/images/<%= items[0].image_url || 'placeholder.jpg' %>" alt="<%= items[0].name %>" onerror="this.src='/images/placeholder.jpeg'">
+      <div class="item-info">
+          <div> 
+            <h1><%= items[0].item_name %></h1>
+            <% items.forEach((item) => { %>
+            <h3><%= item.category_name %></h3>
+            <% }); %>      
+            <h4>$<%= items[0].item_price %></h4>
+          </div>
+          <div>      
+          <h4>In Stock: <%= items[0].item_stock %></h4>
+          <h5><%= items[0].item_sku %></h5>
+          </div> 
+          <a class="delete-button" href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&categoryName=<%= categoryName %>">Delete Item</a>
+      </div>
+    </div>
     <footer>
-      <a href="/items/new">Add New Item</a>
-      <a href="/">Home</a>
+          Application created by Thought Windows
     </footer>
   </body>
 </html>

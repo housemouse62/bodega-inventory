@@ -32,7 +32,7 @@
               <% items.forEach((item) => { %>
                 <tr class="item-row">
                   <td><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><img class="item-image" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>" onerror="this.src='/images/placeholder.jpeg'"></a></td>
-                  <td><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><%= item.item_name %></a><a href="?edit=<%= item.item_id %>">Edit Item</a></td>
+                  <td><div class="name-cell"><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><%= item.item_name %></a><a class="edit-item-button" href="?edit=<%= item.item_id %>">Edit Item</a></div></td>
                   <td><%= item.item_size %></td>
                   <td>$<%= item.item_price %></td>
                   <td><%= item.item_stock %></td>
