@@ -6,9 +6,10 @@ async function viewAllCategoryItemsGet(req, res) {
   const editItem = editID ? await db.getItemDetails(editID) : null;
 
   const sortBy = req.query.sort;
+  const orderBy = req.query.order;
   const categoryID = req.params.id;
 
-  const items = await db.getAllCategoryItems(categoryID, sortBy);
+  const items = await db.getAllCategoryItems(categoryID, sortBy, orderBy);
   const categoryName = items[0].category_name;
   res.render("categoryPage", {
     title: `All ${items.category_name}Items`,

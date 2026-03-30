@@ -9,23 +9,23 @@
         <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
             <div class="nav-form">
               <nav class="main-nav">
-                  <a class="main-links" href="/categories">Categories</a>
-                  <a class="main-links" href="/items">Items</a>
+                  <a class="main-links" href="/">All Categories</a>
+                  <a class="main-links" href="/items">All Items</a>
               </nav>
               <%- include("../partials/form.ejs") %>
             </div>
       </div>
     </header>
     <div class="category-div">
-        <h1><%= items[0].category_name %></h1>
+        <h1 class="items-title"><%= items[0].category_name %></h1>
           <table class="items-table">
             <thead>
               <tr>
                 <th></th>
-                <th>Name<a href="/category/<%= items[0].category_id %>?sort=item_name">Sort Asc</a></th>
-                <th>Size</th>
-                <th>Price<a href="/category/<%= items[0].category_id %>?sort=item_price">Sort Asc</a></th>
-                <th>Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort Asc</a></th>
+                <th><span class="th-inner">Name<a href="/category/<%= items[0].category_id %>?sort=item_name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg"></a><a href="/category/<%= items[0].category_id %>?sort=item_name&order=DESC"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
+                <th><span class="th-inner">Size</span></th>
+                <th><span class="th-inner">Price<a href="/category/<%= items[0].category_id %>?sort=item_price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg"></a><a href="/category/<%= items[0].category_id %>?sort=item_price&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th><span class="th-inner">Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg"></a><a href="/category/<%= items[0].category_id %>?sort=item_stock&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
               </tr>
             </thead>
             <tbody>

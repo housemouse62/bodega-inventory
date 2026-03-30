@@ -4,6 +4,18 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
+    <header class="main-header">
+      <div class="logo-nav-form">
+        <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
+            <div class="nav-form">
+              <nav class="main-nav">
+                  <a class="main-links" href="/">All Categories</a>
+                  <a class="main-links" href="/items">All Items</a>
+              </nav>
+              <%- include("../partials/form.ejs") %>
+            </div>
+      </div>
+    </header>
     <h1><%= items[0].item_name %></h1>
     <ul><h3>Categories</h3>
       
