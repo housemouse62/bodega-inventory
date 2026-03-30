@@ -6,13 +6,15 @@
   <body>
     <%- include("../partials/formErrors.ejs") %>
     <form method="POST" action="/items/new">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        value="<%= locals.formData?.name || '' %>"
-      />
+      <div style="float: left; margin-right: 20px">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= locals.formData?.name || '' %>"
+        />
+      </div>
       <label for="size">Size</label>
       <input
         type="text"

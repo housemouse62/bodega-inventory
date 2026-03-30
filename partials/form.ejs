@@ -1,47 +1,63 @@
 <%- include("../partials/formErrors.ejs") %>
 <form method="POST" action="/items/new">
-  <label for="name">Name</label>
-  <input
-    type="text"
-    id="name"
-    name="name"
-    value="<%= locals.formData?.name || '' %>"
-  />
-  <label for="size">Size</label>
-  <input
-    type="text"
-    id="size"
-    name="size"
-    value="<%= locals.formData?.size || '' %>"
-  />
-  <label for="price">Price</label>
-  <input
-    type="text"
-    id="price"
-    name="price"
-    value="<%= locals.formData?.price || '' %>"
-  />
-  <label for="stock">Stock</label>
-  <input
-    type="text"
-    id="stock"
-    name="stock"
-    value="<%= locals.formData?.stock || '' %>"
-  />
-  <label for="image_url">Image URL</label>
-  <input
-    type="text"
-    id="image_url"
-    name="image_url"
-    value="<%= locals.formData?.image_url || '' %>"
-  />
-  <label for="category">Category</label>
-  <select id="category" name="category">
-    <option value="1">Frozen Food</option>
-    <option value="2">Snacks</option>
-    <option value="3">Drinks</option>
-    <option value="4">Home Goods</option>
-    <option value="5">Uncategorized</option>
-  </select>
-  <button>Submit</button>
+  <div class="form-fields">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= locals.formData?.name || '' %>"
+      />
+    </div>
+    <div class="form-field">
+      <label for="size">Size</label>
+      <input
+        type="text"
+        id="size"
+        name="size"
+        value="<%= locals.formData?.size || '' %>"
+      />
+    </div>
+    <div class="form-field">
+      <label for="price">Price</label>
+      <input
+        type="text"
+        id="price"
+        name="price"
+        value="<%= locals.formData?.price || '' %>"
+      />
+    </div>
+    <div class="form-field">
+      <label for="stock">Stock</label>
+      <input
+        type="text"
+        id="stock"
+        name="stock"
+        value="<%= locals.formData?.stock || '' %>"
+      />
+    </div>
+    <div class="form-field">
+      <label for="image_url">Image URL</label>
+      <input
+        type="text"
+        id="image_url"
+        name="image_url"
+        value="<%= locals.formData?.image_url || '' %>"
+      />
+    </div>
+    <div class="form-field">
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <option value="1">Frozen Food</option>
+        <option value="2">Snacks</option>
+        <option value="3">Drinks</option>
+        <option value="4">Home Goods</option>
+        <option value="5">Uncategorized</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <button class="form-button">Submit</button>
+    </div>
+  </div>
 </form>

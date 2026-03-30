@@ -58,6 +58,35 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+/* form */
+.form-fields {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.form-field > input,
+.form-field > select {
+  height: 25px;
+  padding: 0 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.form-button {
+  height: 25px;
+  padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
 
 .main-links {
   text-decoration: none;
