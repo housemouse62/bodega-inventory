@@ -123,6 +123,31 @@ async function addItemShowForm(req, res) {
   res.render("newItemForm");
 }
 
+const updateItem = [
+  validateItem,
+  async (req, res) => {
+    const itemID = req.params.id;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const items = await db.getAllCategoryItems(req.body.from.split("/")[2]);
+      const categoryName = items[0].category_name;
+      const editItem = await db.getItemDetails(itemID);
+      return res.status(400).render("categoryPage", {
+        errors: errors.array(),
+        formData: req.body,
+        editItem: editItem,
+        items,
+        categoryID: req.body.from.split("/")[2],
+        categoryName,
+        currentPath: req.body.from,
+      });
+    }
+    const { name, size, price, stock, image_url, category } = matchedData(req);
+    await db.updateItem(itemID, name, size, price, stock, image_url, category);
+    res.redirect(req.body.from || "/");
+  },
+];
+
 export {
   viewItemDetailsGet,
   viewAllItemsGet,
@@ -130,4 +155,5 @@ export {
   addItem,
   addItemShowForm,
   confirmDeleteItem,
+  updateItem,
 };

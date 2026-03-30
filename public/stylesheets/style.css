@@ -35,6 +35,10 @@ body {
   display: flex;
   border: 1px solid black;
   margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f4e9d8;
 }
 
 .small-logo {

@@ -47,6 +47,17 @@ async function addItem(name, size, price, stock, image_url, category, itemID) {
   );
 }
 
+async function updateItem(id, name, size, price, stock, image_url, category) {
+  await pool.query(
+    "UPDATE items SET name = $1, size = $2, price = $3, stock = $4, image_url = $5 WHERE id = $6",
+    [name, size, price, stock, image_url, id],
+  );
+  await pool.query(
+    "UPDATE item_categories SET category_id = $1 WHERE item_id = $2",
+    [category, id],
+  );
+}
+
 export default {
   getAllCategories,
   getAllCategoryItems,
@@ -54,4 +65,5 @@ export default {
   getAllItems,
   deleteItem,
   addItem,
+  updateItem,
 };

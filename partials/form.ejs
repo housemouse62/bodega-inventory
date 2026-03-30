@@ -1,4 +1,7 @@
-<form method="POST" action="/items/new">
+<form
+  method="POST"
+  action="<%= locals.editItem ? `/items/${locals.editItem.item_id}/edit` : '/items/new' %>"
+>
   <input type="hidden" name="from" value="<%= locals.currentPath || '/' %>" />
   <div class="form-fields">
     <div class="form-field">
@@ -7,7 +10,7 @@
         type="text"
         id="name"
         name="name"
-        value="<%= locals.formData?.name || '' %>"
+        value="<%= locals.editItem?.item_name || locals.formData?.name || '' %>"
       />
     </div>
     <div class="form-field">
@@ -16,7 +19,7 @@
         type="text"
         id="size"
         name="size"
-        value="<%= locals.formData?.size || '' %>"
+        value="<%= locals.editItem?.item_size || locals.formData?.size || '' %>"
       />
     </div>
     <div class="form-field">
@@ -25,7 +28,7 @@
         type="text"
         id="price"
         name="price"
-        value="<%= locals.formData?.price || '' %>"
+        value="<%= locals.editItem?.item_price || locals.formData?.price || '' %>"
       />
     </div>
     <div class="form-field">
@@ -34,7 +37,7 @@
         type="text"
         id="stock"
         name="stock"
-        value="<%= locals.formData?.stock || '' %>"
+        value="<%= locals.editItem?.item_stock || locals.formData?.stock || '' %>"
       />
     </div>
     <div class="form-field">
@@ -43,21 +46,23 @@
         type="text"
         id="image_url"
         name="image_url"
-        value="<%= locals.formData?.image_url || '' %>"
+        value="<%= locals.editItem?.image_url || locals.formData?.image_url || '' %>"
       />
     </div>
     <div class="form-field">
       <label for="category">Category</label>
       <select id="category" name="category">
-        <option value="1">Frozen Food</option>
-        <option value="2">Snacks</option>
-        <option value="3">Drinks</option>
-        <option value="4">Home Goods</option>
-        <option value="5">Uncategorized</option>
+        <option value="1" <%= locals.editItem?.category_id == 1 ? 'selected' : '' %>>Frozen Food</option>
+        <option value="2" <%= locals.editItem?.category_id == 2 ? 'selected' : '' %>>Snacks</option>
+        <option value="3" <%= locals.editItem?.category_id == 3 ? 'selected' : '' %>>Drinks</option>
+        <option value="4" <%= locals.editItem?.category_id == 4 ? 'selected' : '' %>>Home Goods</option>
+        <option value="5" <%= locals.editItem?.category_id == 5 ? 'selected' : '' %>>Uncategorized</option>
       </select>
     </div>
     <div class="form-field">
-      <button class="form-button">Submit</button>
+      <button class="form-button">
+        <%= locals.editItem? 'Update' : 'Submit' %>
+      </button>
     </div>
   </div>
 </form>

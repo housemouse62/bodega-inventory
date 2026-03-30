@@ -17,26 +17,22 @@
       </div>
     </header>
     <div class="category-div">
-      <div class="sort-div">
-        <a href="/category/<%= items[0].category_id %>?sort=item_name">Sort By Name</a>
-        <a href="/category/<%= items[0].category_id %>?sort=item_price">Sort By Price</a>            <a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort By Stock</a>
-      </div>
         <h1><%= items[0].category_name %></h1>
           <table class="items-table">
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Name<a href="/category/<%= items[0].category_id %>?sort=item_name">Sort Asc</a></th>
                 <th>Size</th>
-                <th>Price</th>
-                <th>Stock</th>
+                <th>Price<a href="/category/<%= items[0].category_id %>?sort=item_price">Sort Asc</a></th>
+                <th>Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort Asc</a></th>
               </tr>
             </thead>
             <tbody>
               <% items.forEach((item) => { %>
                 <tr class="item-row">
                   <td><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><img class="item-image" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>" onerror="this.src='/images/placeholder.jpeg'"></a></td>
-                  <td><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><%= item.item_name %></a></td>
+                  <td><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><%= item.item_name %></a><a href="?edit=<%= item.item_id %>">Edit Item</a></td>
                   <td><%= item.item_size %></td>
                   <td>$<%= item.item_price %></td>
                   <td><%= item.item_stock %></td>
@@ -48,5 +44,24 @@
     <footer>
           Application created by Thought Windows
     </footer>
+    <script>
+      window.addEventListener('load', () => {
+        const scroll = sessionStorage.getItem('scrollY');
+        if (scroll) {
+          window.scrollTo(0, parseInt(scroll));
+          sessionStorage.removeItem('scrollY');
+        }
+      });
+
+      document.querySelector('form').addEventListener('submit', () => {
+        sessionStorage.setItem('scrollY', window.scrollY);
+      });
+
+      document.querySelectorAll('a[href*="?edit="]').forEach(link => {
+        link.addEventListener('click', () => {
+          sessionStorage.setItem('scrollY', window.scrollY);
+        });
+      });
+    </script>
   </body>
 </html>
