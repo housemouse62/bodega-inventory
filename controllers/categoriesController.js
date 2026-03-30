@@ -12,6 +12,7 @@ async function viewAllCategoryItemsGet(req, res) {
     items: items,
     categoryID: categoryID,
     categoryName: categoryName,
+    currentPath: req.baseUrl + req.path,
   });
 }
 

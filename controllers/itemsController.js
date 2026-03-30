@@ -87,15 +87,35 @@ const addItem = [
   validateItem,
   async (req, res) => {
     const errors = validationResult(req);
-    console.log(errors.array());
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .render("newItemForm", { errors: errors.array(), formData: req.body });
+      const errorPayload = { errors: errors.array(), formData: req.body };
+      const from = req.body.from || "/";
+
+      if (from.startsWith("/category/")) {
+        const categoryID = from.split("/")[2];
+        const items = await db.getAllCategoryItems(categoryID);
+        const categoryName = items[0].category_name;
+        return res.status(400).render("categoryPage", {
+          ...errorPayload,
+          title: `All ${categoryName} Items`,
+          items,
+          categoryID,
+          categoryName,
+          currentPath: from,
+        });
+      }
+
+      const categories = await db.getAllCategories();
+      return res.status(400).render("index", {
+        ...errorPayload,
+        title: "All Categories",
+        categories,
+        currentPath: from,
+      });
     }
     const { name, size, price, stock, image_url, category } = matchedData(req);
     await db.addItem(name, size, price, stock, image_url, category);
-    res.redirect(req.query.redirect || "/");
+    res.redirect(req.body.from || "/");
   },
 ];
 
