@@ -17,9 +17,10 @@
       </div>
     </header>
     <div class="item-div">
-      <a href="<%= from %>">Back to <%= categoryName %></a>
-      <img class="item-image-large" src="/images/<%= items[0].image_url || 'placeholder.jpg' %>" alt="<%= items[0].name %>" onerror="this.src='/images/placeholder.jpeg'">
-      <div class="item-info">
+      <span class="back-to-link"><a href="<%= from %>">Back to <%= categoryName %></a></span>
+      <div class="item-overview">
+        <img class="item-image-large" src="/images/<%= items[0].image_url || 'placeholder.jpg' %>" alt="<%= items[0].name %>" onerror="this.src='/images/placeholder.jpeg'">
+        <div class="item-info">
           <div> 
             <h1><%= items[0].item_name %></h1>
             <% items.forEach((item) => { %>
@@ -32,6 +33,7 @@
           <h5><%= items[0].item_sku %></h5>
           </div> 
           <a class="delete-button" href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&categoryName=<%= categoryName %>">Delete Item</a>
+        </div>
       </div>
     </div>
     <footer>

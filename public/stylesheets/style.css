@@ -248,7 +248,16 @@ body {
 
 .item-div {
   display: flex;
+  flex-direction: column;
+}
+
+.item-overview {
+  display: flex;
   padding: 50px 40px;
+}
+
+.back-to-link {
+  margin-left: 40px;
 }
 
 .item-image-large {
