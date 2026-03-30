@@ -22,18 +22,28 @@
         <a href="/category/<%= items[0].category_id %>?sort=item_price">Sort By Price</a>            <a href="/category/<%= items[0].category_id %>?sort=item_stock">Sort By Stock</a>
       </div>
         <h1><%= items[0].category_name %></h1>
-          <ul class="items-grid">
-            <% items.forEach((item) => { %>
-              <div class="item-card">
-                <h2 class="item-name"><%= item.item_name %></h2>
-                <a href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>">View Item</a>
-                <a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><img class="item-image" src="/images/<%= item.item_url %>"
-                                alt="<%= item.item_name %>"
-                                onerror="this.src='/images/placeholder.jpeg'">
-                        </a>
-              </div>
-            <% }); %> 
-          </ul>
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% items.forEach((item) => { %>
+                <tr class="item-row">
+                  <td><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><img class="item-image" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>" onerror="this.src='/images/placeholder.jpeg'"></a></td>
+                  <td><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&categoryName=<%= categoryName %>"><%= item.item_name %></a></td>
+                  <td><%= item.item_size %></td>
+                  <td>$<%= item.item_price %></td>
+                  <td><%= item.item_stock %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
       </div>
     <footer>
           Application created by Thought Windows

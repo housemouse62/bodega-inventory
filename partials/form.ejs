@@ -1,6 +1,5 @@
-<%- include("../partials/formErrors.ejs") %>
 <form method="POST" action="/items/new">
-  <input type="hidden" name="from" value="<%= locals.currentPath || '/' %>">
+  <input type="hidden" name="from" value="<%= locals.currentPath || '/' %>" />
   <div class="form-fields">
     <div class="form-field">
       <label for="name">Name</label>
@@ -62,3 +61,4 @@
     </div>
   </div>
 </form>
+<%- include("../partials/formErrors.ejs") %>
