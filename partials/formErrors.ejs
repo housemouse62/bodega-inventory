@@ -1,6 +1,6 @@
-<% if (locals.errors) {%>
+<% if (locals.formErrors) {%>
 <div class="error-list">
-    <% errors.forEach(function(error) { %>
+    <% formErrors.forEach(function(error) { %>
         <div class="error">* <%= error.msg %></div>
     <% }); %>
 </div>

@@ -61,6 +61,7 @@ async function confirmDeleteItem(req, res) {
 
 async function deleteItem(req, res) {
   const itemID = req.params.id;
+  console.log(itemID);
   const item = await db.getItemDetails(itemID);
   const pwCorrect = req.body.password === process.env.ADMIN_PASSWORD;
   if (pwCorrect) {
@@ -72,11 +73,12 @@ async function deleteItem(req, res) {
       categoryName: req.query.categoryName || "",
     });
   } else {
-    const errors = "Invalid Password";
+    const passwordErrors = "Invalid Password";
+    console.log(passwordErrors);
     return res.status(400).render("confirmDelete", {
       title: `${item[0].item_name}`,
       item: item,
-      errors: errors,
+      passwordErrors: passwordErrors,
       from: req.query.from || "/",
       categoryName: req.query.categoryName,
     });
@@ -86,9 +88,12 @@ async function deleteItem(req, res) {
 const addItem = [
   validateItem,
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const errorPayload = { errors: errors.array(), formData: req.body };
+    const formErrors = validationResult(req);
+    if (!newItemErrors.isEmpty()) {
+      const formErrorPayload = {
+        formErrors: formErrors.array(),
+        formData: req.body,
+      };
       const from = req.body.from || "/";
 
       if (from.startsWith("/category/")) {
@@ -96,7 +101,7 @@ const addItem = [
         const items = await db.getAllCategoryItems(categoryID);
         const categoryName = items[0].category_name;
         return res.status(400).render("categoryPage", {
-          ...errorPayload,
+          ...formErrorPayload,
           title: `All ${categoryName} Items`,
           items,
           categoryID,
@@ -107,7 +112,7 @@ const addItem = [
 
       const categories = await db.getAllCategories();
       return res.status(400).render("index", {
-        ...errorPayload,
+        ...formErrorPayload,
         title: "All Categories",
         categories,
         currentPath: from,
@@ -127,13 +132,13 @@ const updateItem = [
   validateItem,
   async (req, res) => {
     const itemID = req.params.id;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const formErrors = validationResult(req);
+    if (!formErrors.isEmpty()) {
       const items = await db.getAllCategoryItems(req.body.from.split("/")[2]);
       const categoryName = items[0].category_name;
       const editItem = await db.getItemDetails(itemID);
       return res.status(400).render("categoryPage", {
-        errors: errors.array(),
+        formErrors: formErrors.array(),
         formData: req.body,
         editItem: editItem,
         items,

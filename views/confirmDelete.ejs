@@ -1,19 +1,53 @@
 <html>
   <head>
     <title>Confirm Delete <%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1>Confirm Delete Item?</h1>  
-        <h3><%= item[0].item_name %></h3>     
-        <img src="/images/<%= item[0].image_url %>" alt="<%=item[0].item_name %>">
-        <%- include("../partials/passwordErrors.ejs") %>
-        <form method="POST" action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>&categoryName=<%= categoryName || '' %>">
+    <header class="main-header">
+      <div class="logo-nav-form">
+        <a href="/"
+          ><img
+            class="small-logo"
+            src="/images/EverybodyLogo.jpeg"
+            alt="Everybody's Bodega logo"
+        /></a>
+        <div class="nav-form">
+          <nav class="main-nav">
+            <a class="main-links" href="/">All Categories</a>
+            <a class="main-links" href="/items">All Items</a>
+          </nav>
+          <%- include("../partials/form.ejs") %>
+        </div>
+      </div>
+    </header>
+    <div class="item-div">
+      <span class="back-to-link"
+        ><a href="<%= from %>">Back to <%= categoryName %></a></span
+      >
+      <div class="item-overview">
+        <img
+          class="item-image-large"
+          src="/images/<%= item[0].image_url || 'placeholder.jpg' %>"
+          alt="<%= item[0].name %>"
+          onerror="this.src='/images/placeholder.jpeg'"
+        />
+        <div class="item-info">
+          <h1>Confirm Delete Item?</h1>
+          <h3><%= item[0].item_name %></h3>
+          <form
+            method="POST"
+            action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>&categoryName=<%= categoryName || '' %>"
+          >
             <label for="password">Password</label>
-            <input type="password" id="password" name="password"/>
-            <button type="submit">Confirm Delete Item</button>
-        </form>
-    </ul>
+            <input type="password" id="password" name="password" />
+            <br />
+            <button type="submit" class="form-button confirm">Confirm</button>
+          </form>
+          <%- include("../partials/passwordErrors.ejs") %>
+        </div>
+      </div>
+    </div>
     <footer>
       <a href="/">Home</a>
     </footer>
