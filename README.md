@@ -228,3 +228,7 @@ This project was built to practice:
 ## License
 
 ISC
+
+todo:
+Add edit button to individual item page
+Password protect add new item. editing too?

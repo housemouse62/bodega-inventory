@@ -33,6 +33,7 @@
           <h5><%= items[0].item_sku %></h5>
           </div> 
           <a class="delete-button" href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&categoryName=<%= categoryName %>">Delete Item</a>
+        <a class="edit-item-button" href="?edit=<%= items[0].item_id %>&from=/items/<%= items[0].item_id %>">Edit Item</a>
         </div>
       </div>
     </div>

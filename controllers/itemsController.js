@@ -32,21 +32,28 @@ const validateItem = [
 async function viewItemDetailsGet(req, res) {
   const itemID = req.params.id;
   const items = await db.getItemDetails(itemID);
+  const editID = req.query.edit;
+  const editItem = editID ? items : null;
+
   res.render("itemPage", {
     title: `${items.item_name}`,
     items: items,
     from: req.query.from || "/",
     categoryName: req.query.categoryName,
+    editItem: editItem ? editItem[0] : null,
+    currentPath: `/items/${itemID}`,
   });
 }
 
 async function viewAllItemsGet(req, res) {
   const sort = req.query.sort;
   const order = req.query.order;
+
   const editID = req.query.edit;
   const editItem = editID ? await db.getItemDetails(editID) : null;
 
   const items = await db.getAllItems(sort, order);
+
   res.render("allItemsPage", {
     title: "All items",
     items: items,
@@ -154,6 +161,7 @@ const updateItem = [
         currentPath: req.body.from,
       });
     }
+
     const { name, size, price, stock, image_url, category } = matchedData(req);
     await db.updateItem(itemID, name, size, price, stock, image_url, category);
     res.redirect(req.body.from || "/");
