@@ -41,10 +41,17 @@ async function viewItemDetailsGet(req, res) {
 }
 
 async function viewAllItemsGet(req, res) {
-  const items = await db.getAllItems(req.query.sort);
+  const sort = req.query.sort;
+  const order = req.query.order;
+  const editID = req.query.edit;
+  const editItem = editID ? await db.getItemDetails(editID) : null;
+
+  const items = await db.getAllItems(sort, order);
   res.render("allItemsPage", {
     title: "All items",
     items: items,
+    currentPath: req.baseUrl + req.path,
+    editItem: editItem ? editItem[0] : null,
   });
 }
 

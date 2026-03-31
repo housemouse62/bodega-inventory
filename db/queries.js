@@ -24,10 +24,14 @@ async function getItemDetails(id) {
   return rows;
 }
 
-async function getAllItems(sortBy) {
+async function getAllItems(sortBy, orderBy) {
   const allowedSorts = ["name", "price", "stock"];
   const column = allowedSorts.includes(sortBy) ? sortBy : "name";
-  const { rows } = await pool.query(`SELECT * FROM items ORDER BY ${column}`);
+  const order = orderBy === "DESC" ? "DESC" : "ASC";
+  const orderExpr = column === "name" ? "LOWER(name)" : column;
+  const { rows } = await pool.query(
+    `SELECT * FROM items ORDER BY ${orderExpr} ${order}`,
+  );
   return rows;
 }
 

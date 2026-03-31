@@ -4,15 +4,47 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
+    <header class="main-header">
+      <div class="logo-nav-form">
+        <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
+            <div class="nav-form">
+              <nav class="main-nav">
+                  <a class="main-links" href="/">All Categories</a>
+                  <a class="main-links" href="/items">All Items</a>
+              </nav>
+              <%- include("../partials/form.ejs") %>
+            </div>
+      </div>
+    </header>
+          <span class="back-to-link"><a href="/">Back to Categories</a></span>
+
+    <div class="category-div">
+      <table class="items-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th><span class="th-inner">Name<a href="/items/?sort=name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg"></a><a href="/items/?sort=name&order=DESC"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
+                <th><span class="th-inner">Size</span></th>
+                <th><span class="th-inner">Price<a href="/items/?sort=price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg"></a><a href="/items/?sort=price&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th><span class="th-inner">Stock<a href="/items/?sort=stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg"></a><a href="/items/?sort=stock&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+              </tr>
+            </thead>
+            <tbody>
+                <% items.forEach((item) => { %>
+                  <tr class="item-row">
+                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items"><img class="item-image" src="/images/<%= item.image_url %>" alt="<%= item.name %>" onerror="this.src='/images/placeholder.jpeg'"></a></td>
+                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items"><%= item.name %></a><a class="edit-item-button" href="?edit=<%= item.id %>">Edit Item</a></div></td>
+                    <td><%= item.size %></td>
+                    <td>$<%= item.price %></td>
+                    <td><%= item.stock %></td>
+                  </tr>
+                <% }); %> 
+            </tbody>
+            </table>
     <a href="/items/?sort=name">Sort By Name</a>
     <a href="/items/?sort=price">Sort By Price</a>
     <a href="/items/?sort=stock">Sort By Stock</a>
-    <ul>
-      <% items.forEach((item) => { %>
-        <h3><%= item.name %></h3>
-        <a href="/items/<%= item.id %>?from=/items">View Item</a>
-        <% }); %>      
-    </ul>
+    </div>
     <footer>
       <a href="/">Home</a>
     </footer>
