@@ -75,27 +75,26 @@ async function confirmDeleteItem(req, res) {
 
 async function deleteItem(req, res) {
   const itemID = req.params.id;
-  console.log(itemID);
   const item = await db.getItemDetails(itemID);
-  const pwCorrect = req.body.password === process.env.ADMIN_PASSWORD;
-  if (pwCorrect) {
-    await db.deleteItem(item[0].item_id);
-    res.render("itemDeleted", {
-      title: `${item[0].item_name}`,
-      item: item,
-      from: req.query.from || "/",
-      categoryName: req.query.categoryName || "",
-    });
-  } else {
-    const passwordErrors = "Invalid Password";
-    return res.status(400).render("confirmDelete", {
-      title: `${item[0].item_name}`,
-      item: item,
-      passwordErrors: passwordErrors,
-      from: req.query.from || "/",
-      categoryName: req.query.categoryName,
-    });
-  }
+  // const pwCorrect = req.body.password === process.env.ADMIN_PASSWORD;
+  // if (pwCorrect) {
+  await db.deleteItem(item[0].item_id);
+  res.render("itemDeleted", {
+    title: `${item[0].item_name}`,
+    item: item,
+    from: req.query.from || "/",
+    categoryName: req.query.categoryName || "",
+  });
+  // } else {
+  //   const passwordErrors = "Invalid Password";
+  //   return res.status(400).render("confirmDelete", {
+  //     title: `${item[0].item_name}`,
+  //     item: item,
+  //     passwordErrors: passwordErrors,
+  //     from: req.query.from || "/",
+  //     categoryName: req.query.categoryName,
+  //   });
+  // }
 }
 
 const addItem = [
