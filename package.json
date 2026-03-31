@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/housemouse62/bodega-inventory#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",
     "ejs": "^5.0.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.2",
+    "express-session": "^1.19.0",
     "express-validator": "^7.3.1",
     "helmet": "^8.1.0",
     "method-override": "^3.0.0",
