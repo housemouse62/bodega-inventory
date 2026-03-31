@@ -32,7 +32,7 @@
             <tbody>
                 <% items.forEach((item) => { %>
                   <tr class="item-row">
-                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items"><img class="item-image" src="/images/<%= item.image_url %>" alt="<%= item.name %>" onerror="this.src='/images/placeholder.jpeg'"></a></td>
+                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
                     <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items"><%= item.name %></a><a class="edit-item-button" href="?edit=<%= item.id %>">Edit Item</a></div></td>
                     <td><%= item.size %></td>
                     <td>$<%= item.price %></td>
@@ -41,12 +41,11 @@
                 <% }); %> 
             </tbody>
             </table>
-    <a href="/items/?sort=name">Sort By Name</a>
-    <a href="/items/?sort=price">Sort By Price</a>
-    <a href="/items/?sort=stock">Sort By Stock</a>
     </div>
     <footer>
       <a href="/">Home</a>
     </footer>
+    <script src="/scripts/scrollPosition.js"></script>
+    <script src="/scripts/errorEvent.js"></script>
   </body>
 </html>

@@ -22,9 +22,9 @@
                 <% categories.forEach((category, index) => { %>
                     <div class="category-card">
                         <a class='open-link' href="/"><h2><%= category.name %></h2></a>
-                        <a class='open-link' href="<%= `/category/${category.id}`%>"><img class="category-image" src="/images/<%= category.name.replace(/\s+/g, '') %>.jpeg" 
+                        <a class='open-link' href="<%= `/category/${category.id}`%>"><img class="category-image fallback" src="/images/<%= category.name.replace(/\s+/g, '') %>.jpeg" 
                                 alt="<%= category.name %>"
-                                onerror="this.src='/images/placeholder.jpeg'">
+                                >
                         </a>
                     </div>
                 <% }); %>
@@ -33,5 +33,6 @@
         <footer>
             Application created by Thought Windows
         </footer>
+    <script src="/scripts/errorEvent.js"></script>
     </body>
 </html>

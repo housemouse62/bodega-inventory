@@ -6,11 +6,21 @@ import categoriesRouter from "./routes/categoriesRouter.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import methodOverride from "method-override";
+import helmet from "helmet";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        imgSrc: ["'self'"],
+      },
+    },
+  }),
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "views"));
