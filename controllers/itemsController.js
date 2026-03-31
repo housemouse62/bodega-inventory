@@ -88,7 +88,6 @@ async function deleteItem(req, res) {
     });
   } else {
     const passwordErrors = "Invalid Password";
-    console.log(passwordErrors);
     return res.status(400).render("confirmDelete", {
       title: `${item[0].item_name}`,
       item: item,
