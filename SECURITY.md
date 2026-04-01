@@ -1,102 +1,132 @@
 # Security Report — Bodega Inventory App
 
-## What's Already Working Well
-
-- **SQL injection protected** — parameterized queries throughout (`$1, $2...` syntax)
-- **XSS protected** — EJS auto-escapes output with `<%=`
-- **Input validation** — `express-validator` covers name, size, price, stock, and category on add/edit
-- **Secrets in `.env`** — not committed to git
-- **ORDER BY whitelist** — sort column validated against an allowed list before interpolating
+_Last updated: 2026-04-01_
 
 ---
 
-## Current Vulnerabilities
+## What's Working Well
+
+| Protection | Status | Details |
+|---|---|---|
+| **SQL injection** | Protected | Parameterized queries throughout; ORDER BY uses whitelist |
+| **XSS** | Protected | EJS auto-escapes all output with `<%=` |
+| **Input validation** | Server-side | `express-validator` covers name, size, price, stock, category on add/edit |
+| **Auth middleware** | Implemented | `middleware/auth.js` gates all mutating routes |
+| **Session management** | Implemented | `express-session` with `SESSION_SECRET` env var; `saveUninitialized: false` |
+| **Password hashing** | Implemented | `bcrypt.compare()` against `ADMIN_PASSWORD_HASH` env var |
+| **Security headers** | Implemented | `helmet` with custom `imgSrc: ["'self'"]` CSP |
+| **Rate limiting** | Partial | `express-rate-limit` on DELETE (10 req / 15 min) |
+| **Logout** | Implemented | `req.session.destroy()` fully clears the session |
+| **Secrets in `.env`** | Not committed | `.gitignore` covers it |
+
+**All mutating routes require authentication:**
+- `POST /items/new` — `checkAuth`
+- `GET /items/:id/confirmDeleteItem` — `checkAuth`
+- `POST /items/:id/deleteItem` — `checkAuth` + rate limiter
+- `POST /items/:id/edit` — `checkAuth`
+
+---
+
+## Remaining Issues
 
 ### High Priority
 
-| Issue | Risk | Fix |
-|---|---|---|
-| **No CSRF protection** | Anyone can send a forged POST from another site (delete items, add fake data) | Add `csurf` or `csrf-csrf` middleware |
-| **Plaintext password compare** | Timing attacks possible; password exposed in comparison | Use `bcrypt.compare()` |
-| **No rate limiting on DELETE password** | Brute-forceable with no lockout | Add `express-rate-limit` |
-| **Add/Edit is completely open** | Anyone can add or edit items with no auth | Extend password check to mutations |
-
-### Lower Priority
-
-| Issue | Notes |
-|---|---|
-| No `helmet` (security headers) | Easy one-liner that adds CSP, X-Frame-Options, etc. |
-| No client-side validation | HTML `required`, `maxlength`, `min` attrs would improve UX |
-| No HTTPS enforcement | Matters in production, not local dev |
-
----
-
-## Recommended Improvements
-
-### 1. `helmet` — one line, big win
-
-```bash
-npm install helmet
-```
+**1. Password logged to console (`indexController.js:22`)**
 
 ```js
-// app.js
-import helmet from 'helmet';
-app.use(helmet());
+console.log(password); // ← plaintext password written to stdout on every login attempt
 ```
 
-### 2. `express-rate-limit` on the delete route
+Remove both `console.log` lines in `loginPost`. Logging credentials is a serious issue if
+the app ever runs on a shared server or has log aggregation.
 
-```bash
-npm install express-rate-limit
-```
+**2. No rate limiting on the login route**
+
+The delete route is rate-limited, but `POST /login` is not. An attacker can brute-force
+the login form at full speed. Add a limiter to the login route the same way you did for delete:
 
 ```js
-// routes/itemsRouter.js
-import rateLimit from 'express-rate-limit';
-const deleteLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
-router.post('/:id/deleteItem', deleteLimiter, deleteItem);
+// routes/indexRouter.js
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 });
+indexRouter.post("/login", loginLimiter, loginPost);
 ```
 
-### 3. Session-based admin login (the real upgrade)
+**3. `?from=` open redirect**
 
-Instead of checking a password on every POST, add `express-session` + a simple `/admin/login` route. One password prompt logs you in for the session. This is how real apps work.
-
-```bash
-npm install express-session bcrypt
-```
-
-- Store a hashed password in `.env` (generate with `bcrypt.hash()`)
-- Login route sets `req.session.isAdmin = true`
-- Middleware checks `req.session.isAdmin` before any mutating route (POST/PUT/DELETE)
-- Logout clears the session
-
----
-
-## Known Bug
-
-In `controllers/itemsController.js` line 106, the variable `newItemErrors` is referenced but the variable is named `formErrors`. This crashes on form validation failure for the add item route.
+The `from` query parameter is used to redirect after login/logout without validation:
 
 ```js
-// Change:
-if (!newItemErrors.isEmpty()) {
-// To:
-if (!formErrors.isEmpty()) {
+res.redirect(req.query.from || "/"); // ← can redirect to any URL
 ```
+
+An attacker could craft `?from=https://evil.com` and phish users via your login page.
+Fix by validating the redirect is a relative path:
+
+```js
+const from = req.query.from || "/";
+const safeTo = from.startsWith("/") && !from.startsWith("//") ? from : "/";
+res.redirect(safeTo);
+```
+
+### Medium Priority
+
+**4. No CSRF protection**
+
+Forms (login, add, edit, delete, logout) have no CSRF tokens. A malicious page could
+submit a forged POST as a logged-in user. Add the `csrf-csrf` package:
+
+```bash
+npm install csrf-csrf
+```
+
+Then generate a token per request and include `<input type="hidden" name="_csrf" value="<%= csrfToken %>">` in every form.
+
+**5. Username field is cosmetic only**
+
+Any username + the correct password grants admin access. The username is stored in the
+session and displayed in the UI but never verified. This is fine for a single-admin app —
+just worth understanding: the only real credential is the password.
+
+### Low Priority
+
+**6. Session cookie not hardened for production**
+
+`express-session` defaults are fine for local dev, but for a deployed app add:
+
+```js
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,    // already default, but explicit is better
+    sameSite: "lax",   // prevents CSRF via cross-site requests
+    secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+  }
+}));
+```
+
+**7. No client-side form validation**
+
+Forms have no HTML `required`, `maxlength`, or `min`/`max` attributes. Server-side
+validation catches everything, so this is a UX issue not a security one — but it's a
+quick win.
 
 ---
 
 ## Summary Table
 
-| Feature | Status | Details |
-|---|---|---|
-| **Authentication** | Missing | No login/logout, no users |
-| **Authorization** | Minimal | Password on DELETE only |
-| **Input Validation** | Server-side only | `express-validator` on add/edit; no client-side HTML constraints |
-| **SQL Injection** | Protected | Parameterized queries; whitelist on ORDER BY |
-| **XSS** | Protected | EJS auto-escapes output |
-| **CSRF** | Missing | No tokens, no protection |
-| **Sessions** | Missing | No session management |
-| **Password Hashing** | Missing | Plaintext comparison only |
-| **Rate Limiting** | Missing | None |
-| **Security Headers** | Missing | No helmet or CSP |
+| Feature | Status |
+|---|---|
+| SQL Injection | Protected |
+| XSS | Protected |
+| Input Validation | Server-side only |
+| Authentication | Session-based login/logout |
+| Authorization | `checkAuth` middleware on all mutations |
+| Password Hashing | bcrypt |
+| Security Headers | helmet (with CSP) |
+| Rate Limiting | DELETE only — login route unprotected |
+| CSRF | Not implemented |
+| Open Redirect | Unvalidated `?from=` parameter |
+| Credential Logging | Password logged to console (bug) |
+| Session Cookie Hardening | Not configured for production |

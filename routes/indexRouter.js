@@ -1,5 +1,6 @@
 import { Router } from "express";
 const indexRouter = Router();
+const deleteLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
 import {
   viewAllCategoriesGet,
   loginGet,
@@ -9,7 +10,7 @@ import {
 
 indexRouter.get("/", viewAllCategoriesGet); //view all categories in a grid
 indexRouter.get("/login", loginGet);
-indexRouter.post("/login", loginPost);
+indexRouter.post("/login", deleteLimiter, loginPost);
 indexRouter.post("/", logoutPost);
 
 export default indexRouter;

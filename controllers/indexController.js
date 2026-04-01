@@ -18,8 +18,6 @@ async function loginGet(req, res) {
 async function loginPost(req, res) {
   const userName = req.body.username;
   const password = req.body.password;
-  console.log(userName);
-  console.log(password);
   const pwCorrect = await bcrypt.compare(
     password,
     process.env.ADMIN_PASSWORD_HASH,
@@ -36,7 +34,9 @@ async function loginPost(req, res) {
   } else {
     req.session.isAdmin = true;
     req.session.userName = userName;
-    res.redirect(req.query.from || "/");
+    const from = req.query.from || "/";
+    const safeTo = from.startsWith("/") && !from.startsWith("//") ? from : "/";
+    res.redirect(safeTo);
   }
 }
 
@@ -45,7 +45,10 @@ async function logoutPost(req, res) {
     if (error) {
       console.error(error);
     } else {
-      res.redirect(req.query.from || "/");
+      const from = req.query.from || "/";
+      const safeTo =
+        from.startsWith("/") && !from.startsWith("//") ? from : "/";
+      res.redirect(safeTo);
     }
   });
 }

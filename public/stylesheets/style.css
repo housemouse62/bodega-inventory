@@ -91,6 +91,9 @@ body {
   margin-top: 10px;
 }
 
+.auth-input {
+  margin-bottom: 10px;
+}
 .auth-button {
   margin-top: 10px;
 }

@@ -16,30 +16,41 @@
           <nav class="main-nav">
             <a class="main-links" href="/">All Categories</a>
             <a class="main-links" href="/items">All Items</a>
-                  <%- include("../partials/loginLogout.ejs") %>
+            <%- include("../partials/loginLogout.ejs") %>
           </nav>
           <%- include("../partials/form.ejs") %>
         </div>
       </div>
     </header>
     <div class="auth-page">
-    <h1>User Login</h1>
-    <form class="auth-form" method="POST" action="/login?from=<%= locals.from || '/' %>">
-      <div class="item-div">
-        <label for="username">User Name</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value="<%= locals.username || '' %>"
-        />
-      </div>
-      <div class="item-div">
-        <label class="auth-label" for="password">Password</label>
-        <input type="password" id="password" name="password" value="" />
-      </div>
-      <button type="submit" class="form-button auth-button">Login</button>
-    </form>
+      <h1>User Login</h1>
+      <form
+        class="auth-form"
+        method="POST"
+        action="/login?from=<%= locals.from || '/' %>"
+      >
+        <div class="item-div">
+          <label for="username">User Name</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value="<%= locals.username || '' %>"
+          />
+        </div>
+        <div class="item-div">
+          <label class="auth-label" for="password">Password</label>
+          <input
+            class="auth-input"
+            type="password"
+            id="password"
+            name="password"
+            value=""
+          />
+        </div>
+        <%- include("../partials/passwordErrors.ejs") %>
+        <button type="submit" class="form-button auth-button">Login</button>
+      </form>
     </div>
     <footer>Thought Windows</footer>
   </body>
