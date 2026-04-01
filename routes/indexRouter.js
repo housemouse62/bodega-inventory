@@ -1,5 +1,6 @@
 import { Router } from "express";
 const indexRouter = Router();
+import rateLimit from "express-rate-limit";
 const deleteLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
 import {
   viewAllCategoriesGet,

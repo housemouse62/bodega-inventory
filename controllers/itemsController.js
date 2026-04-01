@@ -10,7 +10,7 @@ const validateItem = [
   body("size")
     .trim()
     .isLength({ min: 1, max: 50 })
-    .withMessage(`Name must be between 1 and 50 characters`),
+    .withMessage(`Size must be between 1 and 50 characters`),
   body("price")
     .isFloat({ min: 0 })
     .withMessage("Price must be a positive number")
@@ -38,10 +38,12 @@ async function viewItemDetailsGet(req, res) {
   const itemPath = `/items/${itemID}`;
   const from = req.query.from || "";
   const fromName = req.query.fromName || "";
-  const fullItemUrl = from ? `${itemPath}?from=${from}&fromName=${fromName}` : itemPath;
+  const fullItemUrl = from
+    ? `${itemPath}?from=${from}&fromName=${fromName}`
+    : itemPath;
 
   res.render("itemPage", {
-    title: `${items.item_name}`,
+    title: `${items[0].item_name}`,
     items: items,
     from: from || "/",
     fromName: fromName,
@@ -82,8 +84,6 @@ async function confirmDeleteItem(req, res) {
 async function deleteItem(req, res) {
   const itemID = req.params.id;
   const item = await db.getItemDetails(itemID);
-  // const pwCorrect = req.body.password === process.env.ADMIN_PASSWORD;
-  // if (pwCorrect) {
   await db.deleteItem(item[0].item_id);
   res.render("itemDeleted", {
     title: `${item[0].item_name}`,
@@ -91,16 +91,6 @@ async function deleteItem(req, res) {
     from: req.query.from || "/",
     categoryName: req.query.categoryName || "",
   });
-  // } else {
-  //   const passwordErrors = "Invalid Password";
-  //   return res.status(400).render("confirmDelete", {
-  //     title: `${item[0].item_name}`,
-  //     item: item,
-  //     passwordErrors: passwordErrors,
-  //     from: req.query.from || "/",
-  //     categoryName: req.query.categoryName,
-  //   });
-  // }
 }
 
 const addItem = [
@@ -142,10 +132,6 @@ const addItem = [
   },
 ];
 
-async function addItemShowForm(req, res) {
-  res.render("newItemForm");
-}
-
 const updateItem = [
   validateItem,
   async (req, res) => {
@@ -158,7 +144,7 @@ const updateItem = [
       return res.status(400).render("categoryPage", {
         formErrors: formErrors.array(),
         formData: req.body,
-        editItem: editItem,
+        editItem: editItem[0],
         items,
         categoryID: req.body.from.split("/")[2],
         categoryName,
@@ -177,7 +163,6 @@ export {
   viewAllItemsGet,
   deleteItem,
   addItem,
-  addItemShowForm,
   confirmDeleteItem,
   updateItem,
 };

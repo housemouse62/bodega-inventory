@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
   }
 });
 
-document.querySelector("form").addEventListener("submit", () => {
+document.querySelector("form")?.addEventListener("submit", () => {
   sessionStorage.setItem("scrollY", window.scrollY);
 });
 

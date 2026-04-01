@@ -9,13 +9,11 @@ import {
   viewAllItemsGet,
   deleteItem,
   addItem,
-  addItemShowForm,
   confirmDeleteItem,
   updateItem,
 } from "../controllers/itemsController.js";
 
 itemsRouter.get("/", viewAllItemsGet); // view list of all items? or grid?
-itemsRouter.get("/new", addItemShowForm);
 itemsRouter.post("/new", checkAuth, addItem);
 itemsRouter.get("/:id/confirmDeleteItem", checkAuth, confirmDeleteItem); // popup for password to confirm item deletion
 itemsRouter.post("/:id/deleteItem", checkAuth, deleteLimiter, deleteItem); // deletion confirmation message

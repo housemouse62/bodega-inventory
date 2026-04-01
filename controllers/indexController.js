@@ -25,7 +25,6 @@ async function loginPost(req, res) {
 
   if (!pwCorrect) {
     const passwordErrors = "Invalid Password";
-    console.log(passwordErrors);
     return res.status(400).render("authUser", {
       userName: userName,
       passwordErrors: passwordErrors,

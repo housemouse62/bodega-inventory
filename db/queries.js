@@ -8,7 +8,7 @@ async function getAllCategories() {
 async function getAllCategoryItems(id, sortBy, orderBy) {
   const allowedSorts = ["item_name", "item_price", "item_stock"];
   const column = allowedSorts.includes(sortBy) ? sortBy : "item_name";
-  const order = orderBy ? orderBy : "ASC";
+  const order = orderBy === "DESC" ? "DESC" : "ASC";
   const { rows } = await pool.query(
     `SELECT categories.id AS category_id, categories.name AS category_name, items.id AS item_id, items.image_url AS item_url, items.name AS item_name, items.size AS item_size, items.price AS item_price, items.stock AS item_stock, items.sku AS item_sku FROM categories JOIN item_categories ON categories.id = item_categories.category_id JOIN items ON item_categories.item_id = items.id WHERE categories.id = $1 ORDER BY ${column} ${order}`,
     [id],
@@ -40,7 +40,7 @@ async function deleteItem(id) {
   await pool.query("DELETE FROM items WHERE items.id = $1", [id]);
 }
 
-async function addItem(name, size, price, stock, image_url, category, itemID) {
+async function addItem(name, size, price, stock, image_url, category) {
   const result = await pool.query(
     "INSERT INTO items (name, size, price, stock, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING id",
     [name, size, price, stock, image_url],

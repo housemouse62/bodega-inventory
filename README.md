@@ -1,6 +1,6 @@
 # Everybody's Bodega - Inventory Management System
 
-A full-stack inventory management application for a corner store (bodega), built as part of [The Odin Project](https://www.theodinproject.com/) curriculum. The app allows store staff to browse inventory by category, view item details, add new products, and delete items — all through a clean, server-rendered interface.
+A full-stack inventory management application for a corner store (bodega), built as part of [The Odin Project](https://www.theodinproject.com/) curriculum. The app allows store staff to browse inventory by category, view and edit item details, add new products, and delete items — all through a clean, server-rendered interface protected by session-based authentication.
 
 ---
 
@@ -15,26 +15,29 @@ A full-stack inventory management application for a corner store (bodega), built
 - **Category browsing** — View inventory organized by category (Frozen Food, Snacks, Drinks, Home Goods, Uncategorized)
 - **All items view** — Browse the full inventory in a single list
 - **Item detail pages** — View name, size, price, stock level, SKU, and product image
-- **Add new items** — Form with server-side validation for all fields
-- **Delete items** — Password-protected deletion to prevent accidental or unauthorized removals
+- **Add and edit items** — Forms with server-side validation for all fields
+- **Delete items** — Confirmation step before deletion
 - **Sorting** — Sort items by name, price, or stock level on any list view
 - **Image support** — Product image URLs with an automatic placeholder fallback
-- **Redirect-back navigation** — After actions (add, delete), the app returns the user to their previous context (category page, all items, etc.)
+- **Redirect-back navigation** — After actions, the app returns the user to their previous context
+- **Session-based admin login** — All mutating actions (add, edit, delete) require authentication
 - **Cross-category items** — Items can belong to multiple categories via a junction table
 
 ---
 
 ## Tech Stack
 
-| Layer         | Technology                     |
-| ------------- | ------------------------------ |
-| Runtime       | Node.js                        |
-| Framework     | Express 5.x                    |
-| Database      | PostgreSQL                     |
-| DB Client     | node-postgres (`pg`)           |
-| Templating    | EJS 5.x                        |
-| Validation    | express-validator              |
-| Utilities     | dotenv, method-override        |
+| Layer | Technology |
+| --- | --- |
+| Runtime | Node.js |
+| Framework | Express 5.x |
+| Database | PostgreSQL |
+| DB Client | node-postgres (`pg`) |
+| Templating | EJS 5.x |
+| Validation | express-validator |
+| Auth | express-session, bcrypt |
+| Security | helmet, express-rate-limit |
+| Utilities | dotenv, method-override |
 | Module System | ES Modules (`import`/`export`) |
 
 ---
@@ -67,32 +70,37 @@ The app uses three tables with a many-to-many relationship between items and cat
 
 ```
 bodega-inventory/
-├── app.js                     # Express app entry point
+├── app.js                      # Express app entry point, session + helmet config
 ├── routes/
-│   ├── indexRouter.js         # GET / (homepage)
-│   ├── itemsRouter.js         # CRUD routes for items
-│   └── categoriesRouter.js    # Category browsing route
+│   ├── indexRouter.js          # Homepage, login, logout routes
+│   ├── itemsRouter.js          # CRUD routes for items
+│   └── categoriesRouter.js     # Category browsing route
 ├── controllers/
-│   ├── indexController.js     # Homepage logic
-│   ├── itemsController.js     # Item CRUD + validation
+│   ├── indexController.js      # Homepage, login, logout logic
+│   ├── itemsController.js      # Item CRUD + validation
 │   └── categoriesController.js # Category item listing
+├── middleware/
+│   └── auth.js                 # checkAuth — gates mutating routes
 ├── db/
-│   ├── pool.js                # PostgreSQL connection pool
-│   ├── queries.js             # All SQL query functions
-│   └── populatedb.js          # DB init and seed script
+│   ├── pool.js                 # PostgreSQL connection pool
+│   ├── queries.js              # All SQL query functions
+│   └── populatedb.js           # DB init and seed script
 ├── views/
-│   ├── index.ejs              # Homepage — category grid
-│   ├── categoryPage.ejs       # Items in a category
-│   ├── allItemsPage.ejs       # All items list
-│   ├── itemPage.ejs           # Individual item detail
-│   ├── newItemForm.ejs        # Add item form
-│   ├── confirmDelete.ejs      # Delete confirmation + password
-│   └── itemDeleted.ejs        # Post-deletion success page
+│   ├── index.ejs               # Homepage — category grid
+│   ├── categoryPage.ejs        # Items in a category
+│   ├── allItemsPage.ejs        # All items list
+│   ├── itemPage.ejs            # Individual item detail
+│   ├── authUser.ejs            # Login page
+│   ├── confirmDelete.ejs       # Delete confirmation
+│   └── itemDeleted.ejs         # Post-deletion success page
 ├── partials/
-│   ├── formErrors.ejs         # Reusable form validation errors
-│   └── passwordErrors.ejs     # Reusable password error display
+│   ├── form.ejs                # Add/edit item form (rendered in header)
+│   ├── formErrors.ejs          # Reusable form validation errors
+│   ├── loginLogout.ejs         # Login/logout nav element
+│   └── passwordErrors.ejs      # Reusable password error display
 └── public/
-    └── images/                # Static product images + placeholder
+    ├── images/                 # Static product images + placeholder
+    └── scripts/                # Client-side JS (scroll position, etc.)
 ```
 
 The app follows an **MVC pattern**: routes delegate to controllers, controllers call query functions, and query functions interact with the database via a shared connection pool.
@@ -125,23 +133,33 @@ npm install
 psql -U postgres -c "CREATE DATABASE bodega_inventory;"
 ```
 
-### 4. Configure environment variables
+### 4. Generate a bcrypt password hash
+
+The app stores the admin password as a bcrypt hash, not plaintext. Generate one in Node:
+
+```bash
+node -e "import('bcrypt').then(b => b.default.hash('your_password_here', 10).then(console.log))"
+```
+
+### 5. Configure environment variables
 
 Create a `.env` file in the project root:
 
 ```env
 DB_CONNECTION=postgresql://localhost/bodega_inventory
-ADMIN_PASSWORD=your_admin_password_here
+ADMIN_PASSWORD_HASH=your_bcrypt_hash_here
+SESSION_SECRET=a_long_random_string_here
 PORT=3000
 ```
 
-| Variable         | Description                                              |
-| ---------------- | -------------------------------------------------------- |
-| `DB_CONNECTION`  | PostgreSQL connection string                             |
-| `ADMIN_PASSWORD` | Password required to delete items                        |
-| `PORT`           | Port to run the server on (optional, defaults to `3000`) |
+| Variable | Description |
+| --- | --- |
+| `DB_CONNECTION` | PostgreSQL connection string |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash of the admin password |
+| `SESSION_SECRET` | Secret used to sign the session cookie |
+| `PORT` | Port to run the server on (optional, defaults to `3000`) |
 
-### 5. Seed the database
+### 6. Seed the database
 
 Run the population script to create tables and load sample data (42 items across 5 categories):
 
@@ -149,7 +167,7 @@ Run the population script to create tables and load sample data (42 items across
 node db/populatedb.js
 ```
 
-### 6. Start the server
+### 7. Start the server
 
 ```bash
 node app.js
@@ -161,22 +179,31 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Routes Reference
 
-| Method | Path                           | Description                     |
-| ------ | ------------------------------ | ------------------------------- |
-| `GET`  | `/`                            | Homepage — all categories       |
-| `GET`  | `/category/:id`                | All items in a category         |
-| `GET`  | `/items`                       | All items                       |
-| `GET`  | `/items/new`                   | Add new item form               |
-| `POST` | `/items/new`                   | Submit new item                 |
-| `GET`  | `/items/:id`                   | Item detail page                |
-| `GET`  | `/items/:id/confirmDeleteItem` | Delete confirmation dialog      |
-| `POST` | `/items/:id/deleteItem`        | Delete item (requires password) |
+| Method | Path | Auth Required | Description |
+| --- | --- | --- | --- |
+| `GET` | `/` | No | Homepage — all categories |
+| `GET` | `/login` | No | Login page |
+| `POST` | `/login` | No | Submit login credentials |
+| `POST` | `/` | No | Logout |
+| `GET` | `/category/:id` | No | All items in a category |
+| `GET` | `/items` | No | All items |
+| `POST` | `/items/new` | Yes | Submit new item |
+| `GET` | `/items/:id` | No | Item detail page |
+| `GET` | `/items/:id/confirmDeleteItem` | Yes | Delete confirmation dialog |
+| `POST` | `/items/:id/deleteItem` | Yes | Delete item |
+| `POST` | `/items/:id/edit` | Yes | Update item |
 
-**Sorting** is supported on list views via a `?sort=` query parameter:
+**Sorting** is supported on list views via query parameters:
 
-- `/items?sort=name` — sort by item name
-- `/category/:id?sort=price` — sort by price
-- `/items?sort=stock` — sort by stock level
+- `?sort=name&order=ASC` — sort by name ascending
+- `?sort=price&order=DESC` — sort by price descending
+- `?sort=stock` — sort by stock level
+
+---
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for a full breakdown of protections in place and any known gaps.
 
 ---
 
@@ -187,7 +214,7 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 1. Push your code to GitHub
 2. Create a new **Web Service** on [Render](https://render.com) and connect your repo
 3. Add a **PostgreSQL** database instance on Render
-4. Set environment variables in the Render dashboard (`DB_CONNECTION`, `ADMIN_PASSWORD`)
+4. Set environment variables in the Render dashboard (`DB_CONNECTION`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`)
 5. Set the start command to `node app.js`
 6. After the service is live, run the seed script against your production database:
 
@@ -199,10 +226,8 @@ DB_CONNECTION=your_render_db_connection_string node db/populatedb.js
 
 ## Future Enhancements
 
-- **User authentication** — Replace the single admin password with proper user accounts and sessions
-- **Direct image uploads** — Allow file uploads instead of requiring an image URL
 - **Category CRUD** — Add, edit, and delete categories (currently read-only)
-- **Edit items** — Update existing item details without deleting and re-adding
+- **Direct image uploads** — Allow file uploads instead of requiring an image URL
 - **Search and filter** — Find items by name, price range, or stock level
 - **Pagination** — Handle large inventories without loading all items at once
 - **Low stock alerts** — Flag items below a configurable stock threshold
@@ -220,7 +245,8 @@ This project was built to practice:
 - **Server-side form validation** — using express-validator with custom error messages and re-rendered forms
 - **MVC architecture** — separating routing, business logic, and data access concerns
 - **EJS templating** — rendering dynamic HTML with partials for reusable components
-- **Admin access control** — password-protecting destructive actions without a full auth system
+- **Session-based authentication** — login/logout with express-session, bcrypt password hashing, and auth middleware
+- **Web security fundamentals** — SQL injection prevention, XSS protection, open redirect defense, security headers, and rate limiting
 - **User experience details** — redirect-back navigation, placeholder images, and sort controls
 
 ---
@@ -228,7 +254,3 @@ This project was built to practice:
 ## License
 
 ISC
-
-todo:
-
-Password protect add new item. editing too?
