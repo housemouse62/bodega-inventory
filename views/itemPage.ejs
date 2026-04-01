@@ -26,13 +26,21 @@
           <div> 
             <h1><%= items[0].item_name %></h1>
             <% items.forEach((item) => { %>
-            <h3><%= item.category_name %></h3>
-            <% }); %>      
-            <h4>$<%= items[0].item_price %></h4>
+            <h2><%= item.category_name %></h3>
+            <% }); %>    
+            <dl class="item-price-details">
+              <dt>Price</dt>
+              <dd>$<%= items[0].item_price %></dd>
+            </dl>  
           </div>
-          <div>      
-            <h4>In Stock: <%= items[0].item_stock %></h4>
-            <h5><%= items[0].item_sku %></h5>
+          <div> 
+            <dl class="item-meta-details">
+              <dt>In Stock:</dt>
+              <dd><%= items[0].item_stock %></dd>
+
+              <dt>SKU:</dt>
+              <dd><%= items[0].item_sku %></dd>
+            </dl>     
           </div> 
           <a class="edit-item-button" href="?edit=<%= items[0].item_id %>&from=/items/<%= items[0].item_id %>&fromName=<%= fromName %>">Edit Item</a>
           <a class="delete-button" href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&fromName=<%= fromName %>">Delete Item</a>

@@ -35,7 +35,7 @@
         />
         <div class="item-info">
           <h1>Confirm Delete Item?</h1>
-          <h3><%= item[0].item_name %></h3>
+          <h2><%= item[0].item_name %></h3>
           <form
             method="POST"
             action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>&categoryName=<%= categoryName || '' %>"
