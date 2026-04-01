@@ -4,6 +4,7 @@
         <title><%= title %></title>
     </head>
     <body>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
         <header class="main-header">
             <div class="logo-nav-form">
                 <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
@@ -17,7 +18,7 @@
                 </div>
             </div>
         </header>
-        <div class="main-div">
+        <main id="main-content" class="main-div">
             <h1 class="index-title"><%= title %></h1>
             <ul class="category-grid">
                 <% categories.forEach((category, index) => { %>
@@ -30,7 +31,7 @@
                     </div>
                 <% }); %>
             </ul>
-        </div>
+        </main>
         <footer>
             Thought Windows
         </footer>

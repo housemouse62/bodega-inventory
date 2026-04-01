@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="main-header">
       <div class="logo-nav-form">
         <a href="/"
@@ -22,7 +23,7 @@
         </div>
       </div>
     </header>
-    <div class="auth-page">
+    <main id="main-content" class="auth-page">
       <h1>User Login</h1>
       <form
         class="auth-form"
@@ -51,7 +52,7 @@
         <%- include("../partials/passwordErrors.ejs") %>
         <button type="submit" class="form-button auth-button">Login</button>
       </form>
-    </div>
+    </main id="main-content">
     <footer>Thought Windows</footer>
   </body>
 </html>

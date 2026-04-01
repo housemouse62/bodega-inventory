@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="main-header">
       <div class="logo-nav-form">
         <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
@@ -17,7 +18,7 @@
             </div>
       </div>
     </header>
-    <div class="item-div">
+    <main id="main-content" class="item-div">
       <span class="back-to-link"><a href="<%= from %>">Back to <%= fromName %></a></span>
       <div class="item-overview">
         <img class="item-image-large fallback" src="/images/<%= items[0].item_url %>" alt="<%= items[0].item_name %>">
@@ -37,7 +38,7 @@
           <a class="delete-button" href="/items/<%= items[0].item_id %>/confirmDeleteItem?from=<%= from %>&fromName=<%= fromName %>">Delete Item</a>
         </div>
       </div>
-    </div>
+    </main>
     <script src="/scripts/errorEvent.js"></script>
     <footer>
           Thought Windows

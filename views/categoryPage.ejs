@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="main-header">
       <div class="logo-nav-form">
         <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
@@ -17,7 +18,7 @@
             </div>
       </div>
     </header>
-    <div>
+    <main id="main-content">
       <span class="back-to-link"><a href="/">Back to Categories</a></span>
       <div class="category-div">
         <h1 class="items-title"><%= items[0].category_name %></h1>
@@ -44,7 +45,7 @@
             </tbody>
           </table>
       </div>
-    </div>
+    </main>
     <footer>
           Thought Windows
     </footer>
