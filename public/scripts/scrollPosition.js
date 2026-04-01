@@ -4,6 +4,10 @@ window.addEventListener("load", () => {
     window.scrollTo(0, parseInt(scroll));
     sessionStorage.removeItem("scrollY");
   }
+
+  if (new URLSearchParams(window.location.search).has("edit")) {
+    document.querySelector("form input:not([type=hidden])")?.focus();
+  }
 });
 
 document.querySelector("form")?.addEventListener("submit", () => {
