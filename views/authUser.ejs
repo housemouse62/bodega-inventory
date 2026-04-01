@@ -16,6 +16,7 @@
           <nav class="main-nav">
             <a class="main-links" href="/">All Categories</a>
             <a class="main-links" href="/items">All Items</a>
+            <div class="login-link"><a href="/login">Login</a></div>
           </nav>
           <%- include("../partials/form.ejs") %>
         </div>
@@ -23,17 +24,17 @@
     </header>
     <form method="POST" action="/login">
       <div class="item-div">
-        <label for="userName">User Name</label>
+        <label for="username">User Name</label>
         <input
           type="text"
-          id="userName"
-          name="userName"
-          value="<%= locals.userName || '' %>"
+          id="username"
+          name="username"
+          value="<%= locals.username || '' %>"
         />
       </div>
       <div class="item-div">
         <label for="password">Password</label>
-        <input type="text" id="password" name="password" value="" />
+        <input type="password" id="password" name="password" value="" />
       </div>
       <button type="submit" class="form-button">Login</button>
     </form>

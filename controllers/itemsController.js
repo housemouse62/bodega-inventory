@@ -101,7 +101,7 @@ const addItem = [
   validateItem,
   async (req, res) => {
     const formErrors = validationResult(req);
-    if (!newItemErrors.isEmpty()) {
+    if (!formErrors.isEmpty()) {
       const formErrorPayload = {
         formErrors: formErrors.array(),
         formData: req.body,

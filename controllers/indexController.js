@@ -12,13 +12,14 @@ async function viewAllCategoriesGet(req, res) {
 }
 
 async function loginGet(req, res) {
-  res.render("login");
+  res.render("authUser");
 }
 
 async function loginPost(req, res) {
   const userName = req.body.username;
   const password = req.body.password;
-
+  console.log(userName);
+  console.log(password);
   const pwCorrect = await bcrypt.compare(
     password,
     process.env.ADMIN_PASSWORD_HASH,
@@ -26,7 +27,8 @@ async function loginPost(req, res) {
 
   if (!pwCorrect) {
     const passwordErrors = "Invalid Password";
-    return res.status(400).render("login", {
+    console.log(passwordErrors);
+    return res.status(400).render("authUser", {
       userName: userName,
       passwordErrors: passwordErrors,
       from: req.query.from || "/",

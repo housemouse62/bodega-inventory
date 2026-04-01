@@ -21,6 +21,12 @@ app.use(
   }),
 );
 
+app.use((req, res, next) => {
+  res.locals.isAdmin = req.session.isAdmin || false;
+  res.locals.userName = req.session.userName || false;
+  next();
+});
+
 app.use(
   helmet({
     contentSecurityPolicy: {
