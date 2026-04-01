@@ -68,14 +68,62 @@ body {
 
 .login-link {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
   border: 1px solid black;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 6px 14px;
+}
+
+.login-link--active {
+  background-color: #f0ede6;
+  border-color: #3F6B4B;
+}
+
+.login-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.login-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #3F6B4B;
+  flex-shrink: 0;
+}
+
+.login-username {
+  font-family: "bebas";
+  font-size: 20px;
+  color: #2B2B2B;
+  letter-spacing: 0.5px;
+}
+
+.login-nav-link {
+  font-family: "bebas";
+  font-size: 28px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logout-button {
+  height: 25px;
+  padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #C43A2F;
+  color: white;
+  cursor: pointer;
+  font-family: "inter";
+  font-size: 13px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .auth-page {
@@ -125,6 +173,8 @@ body {
   padding: 0 10px;
   border: 1px solid black;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .error-list {
@@ -277,6 +327,7 @@ body {
   background-color: #efefef;
   width: fit-content;
   grid-column: 2;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 /* individual item view */
 
@@ -314,6 +365,7 @@ body {
   padding: 4px 6px;
   background-color: #efefef;
   width: fit-content;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .confirm {
@@ -330,6 +382,58 @@ footer {
   mustard: '#D9A441',
   bodegaGreen: '#3F6B4B', */
 
+/* ── Hover States ── */
+
+/* Nav links */
+.main-links:hover,
+.login-nav-link:hover {
+  color: #D9A441;
+}
+
+/* Category cards */
+.category-card:hover {
+  border-color: #D9A441;
+  background-color: #fdf5e8;
+}
+
+/* Item name links in table */
+.item-name:hover {
+  color: #D9A441;
+}
+
+/* Edit item button */
+.edit-item-button:hover {
+  background-color: #D9A441;
+  border-color: #D9A441;
+  color: white;
+}
+
+/* Delete / confirm delete button */
+.delete-button:hover {
+  background-color: #C43A2F;
+  border-color: #C43A2F;
+  color: white;
+}
+
+/* Generic form submit buttons */
+.form-button:hover {
+  background-color: #D9A441;
+  border-color: #D9A441;
+  color: white;
+}
+
+/* Logout button — darken the red */
+.logout-button:hover {
+  background-color: #a82e24;
+  border-color: #a82e24;
+}
+
+/* Sort icons */
+.sort-icon:hover {
+  background-color: #D9A441;
+  border-color: #D9A441;
+}
+
 @media (max-width: 600px) {
   .main-nav {
     flex-direction: column;
@@ -341,5 +445,7 @@ footer {
     position: static;
     transform: none;
     align-self: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
