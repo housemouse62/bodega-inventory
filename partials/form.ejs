@@ -11,7 +11,7 @@
         id="name"
         name="name"
         value="<%= locals.editItem?.item_name || locals.formData?.name || '' %>"
-      />
+        required />
     </div>
     <div class="form-field">
       <label for="size">Size</label>
@@ -20,25 +20,29 @@
         id="size"
         name="size"
         value="<%= locals.editItem?.item_size || locals.formData?.size || '' %>"
-      />
+        required />
     </div>
     <div class="form-field">
       <label for="price">Price</label>
       <input
-        type="text"
+        type="number"
         id="price"
         name="price"
+        step="0.01"
+        min="0"
         value="<%= locals.editItem?.item_price || locals.formData?.price || '' %>"
-      />
+        required />
     </div>
     <div class="form-field">
       <label for="stock">Stock</label>
       <input
-        type="text"
+        type="number"
         id="stock"
         name="stock"
+        step="1"
+        min="0"
         value="<%= locals.editItem?.item_stock || locals.formData?.stock || '' %>"
-      />
+        required />
     </div>
     <div class="form-field">
       <label for="image_url">Image URL</label>
@@ -51,7 +55,7 @@
     </div>
     <div class="form-field">
       <label for="category">Category</label>
-      <select id="category" name="category">
+      <select id="category" name="category" required>
         <option value="1" <%= locals.editItem?.category_id == 1 ? 'selected' : '' %>>Frozen Food</option>
         <option value="2" <%= locals.editItem?.category_id == 2 ? 'selected' : '' %>>Snacks</option>
         <option value="3" <%= locals.editItem?.category_id == 3 ? 'selected' : '' %>>Drinks</option>

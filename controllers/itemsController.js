@@ -78,6 +78,7 @@ async function confirmDeleteItem(req, res) {
     item: item,
     from: req.query.from || "/",
     categoryName: req.query.categoryName,
+    currentPath: req.baseUrl + req.path,
   });
 }
 
@@ -90,6 +91,7 @@ async function deleteItem(req, res) {
     item: item,
     from: req.query.from || "/",
     categoryName: req.query.categoryName || "",
+    currentPath: req.baseUrl + req.path,
   });
 }
 

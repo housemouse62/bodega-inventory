@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
     <head>
         <link rel="stylesheet" href="/stylesheets/style.css">
         <title><%= title %></title>
@@ -11,7 +11,7 @@
                 <div class="nav-form">
                     <nav class="main-nav">
                         <a class="main-links" href="/" <%-  currentPath === '/' ? 'aria-current="page"' : '' %>>All Categories</a>
-                  <a class="main-links" href="/items" <%= currentPath === '/items' ? 'aria-current="page"' : '' %>>All Items</a>
+                  <a class="main-links" href="/items" <%-  currentPath.startsWith('/items') ? 'aria-current="page"' : '' %>>All Items</a>
                   <%- include("../partials/loginLogout.ejs") %>
                     </nav>
                     <%- include("../partials/form.ejs") %>
@@ -23,10 +23,9 @@
             <ul class="category-grid">
                 <% categories.forEach((category, index) => { %>
                     <div class="category-card">
-                        <a class='open-link' href="/"><h2><%= category.name %></h2></a>
-                        <a class='open-link' href="<%= `/category/${category.id}`%>"><img class="category-image fallback" src="/images/<%= category.name.replace(/\s+/g, '') %>.jpeg" 
-                                alt="<%= category.name %>"
-                                >
+                        <a class='open-link' href="/category/<%= category.id %>">
+                            <img class="category-image fallback" src="/images/<%= category.name.replace(/\s+/g, '') %>.jpeg" alt="">
+                            <h2><%= category.name %></h2>
                         </a>
                     </div>
                 <% }); %>
