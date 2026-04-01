@@ -513,6 +513,12 @@ footer {
   border-color: #d9a441;
 }
 
+/* Active nav link */
+a.main-links[aria-current="page"] {
+  color: #d9a441;
+  border-bottom: 2px solid #d9a441;
+}
+
 @media (max-width: 600px) {
   .main-nav {
     flex-direction: column;

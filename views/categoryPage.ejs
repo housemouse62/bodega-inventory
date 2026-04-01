@@ -10,8 +10,8 @@
         <a href="/"><img class="small-logo" src="/images/EverybodyLogo.jpeg" alt="Everybody's Bodega logo"></a>
             <div class="nav-form">
               <nav class="main-nav">
-                  <a class="main-links" href="/">All Categories</a>
-                  <a class="main-links" href="/items">All Items</a>
+                  <a class="main-links" href="/" <%-  currentPath === '/' ? 'aria-current="page"' : '' %>>All Categories</a>
+                  <a class="main-links" href="/items" <%-  currentPath.startsWith('/items') ? 'aria-current="page"' : '' %>>All Items</a>
                   <%- include("../partials/loginLogout.ejs") %>
               </nav>
               <%- include("../partials/form.ejs") %>
@@ -25,11 +25,11 @@
           <table class="items-table">
             <thead>
               <tr>
-                <th></th>
-                <th><span class="th-inner">Name<a href="/category/<%= items[0].category_id %>?sort=item_name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/category/<%= items[0].category_id %>?sort=item_name&order=DESC" alt="Sort by name, Z to A"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
-                <th><span class="th-inner">Size</span></th>
-                <th><span class="th-inner">Price<a href="/category/<%= items[0].category_id %>?sort=item_price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_price&order=DESC" alt="Sort by price, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
-                <th><span class="th-inner">Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_stock&order=DESC" alt="Sort by stock, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th scope="col" aria-label="Product image"></th>
+                <th scope="col"><span class="th-inner">Name<a href="/category/<%= items[0].category_id %>?sort=item_name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/category/<%= items[0].category_id %>?sort=item_name&order=DESC" alt="Sort by name, Z to A"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
+                <th scope="col"><span class="th-inner">Size</span></th>
+                <th scope="col"><span class="th-inner">Price<a href="/category/<%= items[0].category_id %>?sort=item_price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_price&order=DESC" alt="Sort by price, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th scope="col"><span class="th-inner">Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_stock&order=DESC" alt="Sort by stock, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
               </tr>
             </thead>
             <tbody>
