@@ -16,7 +16,7 @@ async function viewAllCategoryItemsGet(req, res) {
     title: `All ${items.category_name}Items`,
     items: items,
     categoryID: categoryID,
-    categoryName: categoryName,
+    fromName: categoryName,
     currentPath: req.baseUrl + req.path,
     editItem: editItem ? editItem[0] : null,
   });

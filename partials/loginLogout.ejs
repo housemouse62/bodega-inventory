@@ -1,0 +1,10 @@
+<div class="login-link">
+  <% if (isAdmin) { %>
+    <%= userName %> logged in
+    <form method="POST" action="/" style="display:inline;">
+      <button type="submit" class="form-button">Logout</button>
+    </form>
+  <% } else { %>
+    <a href="/login?from=<%= locals.loginFrom || locals.currentPath || '/' %>">Login</a>
+  <% } %>
+</div>

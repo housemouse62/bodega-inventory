@@ -12,7 +12,7 @@ async function viewAllCategoriesGet(req, res) {
 }
 
 async function loginGet(req, res) {
-  res.render("authUser");
+  res.render("authUser", { from: req.query.from || "/" });
 }
 
 async function loginPost(req, res) {

@@ -16,7 +16,7 @@
           <nav class="main-nav">
             <a class="main-links" href="/">All Categories</a>
             <a class="main-links" href="/items">All Items</a>
-                  <div class="login-link"><%= isAdmin ? `${userName} logged in` : '' %><a href="/login"><%= isAdmin ? 'Logout' : 'Login' %></a></div>
+                  <%- include("../partials/loginLogout.ejs") %>
           </nav>
           <%- include("../partials/form.ejs") %>
         </div>
@@ -24,7 +24,7 @@
     </header>
     <div class="auth-page">
     <h1>User Login</h1>
-    <form class="auth-form" method="POST" action="/login">
+    <form class="auth-form" method="POST" action="/login?from=<%= locals.from || '/' %>">
       <div class="item-div">
         <label for="username">User Name</label>
         <input

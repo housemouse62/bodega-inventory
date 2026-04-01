@@ -11,7 +11,7 @@
               <nav class="main-nav">
                   <a class="main-links" href="/">All Categories</a>
                   <a class="main-links" href="/items">All Items</a>
-                  <div class="login-link"><%= isAdmin ? `${userName} logged in` : '' %><a href="/login"><%= isAdmin ? 'Logout' : 'Login' %></a></div>
+                  <%- include("../partials/loginLogout.ejs") %>
               </nav>
               <%- include("../partials/form.ejs") %>
             </div>
@@ -33,8 +33,8 @@
             <tbody>
                 <% items.forEach((item) => { %>
                   <tr class="item-row">
-                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
-                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items"><%= item.name %></a><a class="edit-item-button" href="?edit=<%= item.id %>">Edit Item</a></div></td>
+                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items&fromName=All Items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
+                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items&fromName=All Items"><%= item.name %></a><a class="edit-item-button" href="?edit=<%= item.id %>">Edit Item</a></div></td>
                     <td><%= item.size %></td>
                     <td>$<%= item.price %></td>
                     <td><%= item.stock %></td>

@@ -35,13 +35,19 @@ async function viewItemDetailsGet(req, res) {
   const editID = req.query.edit;
   const editItem = editID ? items : null;
 
+  const itemPath = `/items/${itemID}`;
+  const from = req.query.from || "";
+  const fromName = req.query.fromName || "";
+  const fullItemUrl = from ? `${itemPath}?from=${from}&fromName=${fromName}` : itemPath;
+
   res.render("itemPage", {
     title: `${items.item_name}`,
     items: items,
-    from: req.query.from || "/",
-    categoryName: req.query.categoryName,
+    from: from || "/",
+    fromName: fromName,
     editItem: editItem ? editItem[0] : null,
-    currentPath: `/items/${itemID}`,
+    currentPath: itemPath,
+    loginFrom: encodeURIComponent(fullItemUrl),
   });
 }
 

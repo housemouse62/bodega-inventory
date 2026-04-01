@@ -11,16 +11,7 @@
                     <nav class="main-nav">
                         <a class="main-links" href="/">All Categories</a>
                         <a class="main-links" href="/items">All Items</a>
-                  <div class="login-link">
-                    <% if (isAdmin) { %>
-                      <%= userName %> logged in
-                      <form method="POST" action="/" style="display:inline;">
-                        <button type="submit" class="form-button">Logout</button>
-                      </form>
-                    <% } else { %>
-                      <a href="/login">Login</a>
-                    <% } %>
-                  </div>
+                  <%- include("../partials/loginLogout.ejs") %>
                     </nav>
                     <%- include("../partials/form.ejs") %>
                 </div>
