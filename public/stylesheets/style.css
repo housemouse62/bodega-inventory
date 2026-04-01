@@ -316,6 +316,11 @@ body {
 .confirm {
   margin-top: 15px;
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+}
 /* bodegaRed: '#C43A2F',
   cream: '#F4E9D8',
   softBlack: '#2B2B2B',
