@@ -27,12 +27,7 @@
         ><a href="<%= from %>">Back to <%= categoryName %></a></span
       >
       <div class="item-overview">
-        <img
-          class="item-image-large"
-          src="/images/<%= item[0].image_url || 'placeholder.jpg' %>"
-          alt="<%= item[0].name %>"
-          onerror="this.src='/images/placeholder.jpeg'"
-        />
+        <img class="item-image-large fallback" src="/images/<%= item[0].item_url %>" alt="<%= item[0].item_name %>">
         <div class="item-info">
           <h1>Confirm Delete Item?</h1>
           <h3><%= item[0].item_name %></h3>
@@ -40,8 +35,6 @@
             method="POST"
             action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>&categoryName=<%= categoryName || '' %>"
           >
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" />
             <br />
             <button type="submit" class="form-button confirm">Confirm</button>
           </form>
@@ -50,7 +43,8 @@
       </div>
     </div>
     <footer>
-      <a href="/">Home</a>
+          Application created by Thought Windows
     </footer>
+    <script src="/scripts/errorEvent.js"></script>
   </body>
 </html>

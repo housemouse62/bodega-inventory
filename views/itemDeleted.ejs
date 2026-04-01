@@ -29,12 +29,7 @@
         ></span
       >
       <div class="item-overview">
-        <img
-          class="item-image-large"
-          src="/images/<%= item[0].image_url || 'placeholder.jpg' %>"
-          alt="<%= item[0].name %>"
-          onerror="this.src='/images/placeholder.jpeg'"
-        />
+        <img class="item-image-large fallback" src="/images/<%= item[0].item_url %>" alt="<%= item[0].item_name %>">
         <div class="item-info">
           <h1>Item Deleted</h1>
           <h3><%= item[0].item_name %></h3>
@@ -42,7 +37,8 @@
       </div>
     </div>
     <footer>
-      <a href="/">Home</a>
+          Application created by Thought Windows
     </footer>
+    <script src="/scripts/errorEvent.js"></script>
   </body>
 </html>
