@@ -56,13 +56,27 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   margin-left: 10px;
+  width: 100%;
 }
 
 .main-nav {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
 }
 
+.login-link {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
 /* form */
 .form-fields {
   display: flex;
