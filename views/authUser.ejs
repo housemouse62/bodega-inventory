@@ -22,7 +22,9 @@
         </div>
       </div>
     </header>
-    <form method="POST" action="/login">
+    <div class="auth-page">
+    <h1>User Login</h1>
+    <form class="auth-form" method="POST" action="/login">
       <div class="item-div">
         <label for="username">User Name</label>
         <input
@@ -33,11 +35,12 @@
         />
       </div>
       <div class="item-div">
-        <label for="password">Password</label>
+        <label class="auth-label" for="password">Password</label>
         <input type="password" id="password" name="password" value="" />
       </div>
-      <button type="submit" class="form-button">Login</button>
+      <button type="submit" class="form-button auth-button">Login</button>
     </form>
+    </div>
     <footer>Application created by Thought Windows</footer>
   </body>
 </html>

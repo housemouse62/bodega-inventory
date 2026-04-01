@@ -77,6 +77,23 @@ body {
   border-radius: 8px;
   padding: 10px 20px;
 }
+
+.auth-page {
+  padding: 2rem;
+}
+
+.auth-form {
+  margin-top: 1rem;
+  width: 15rem;
+}
+
+.auth-label {
+  margin-top: 10px;
+}
+
+.auth-button {
+  margin-top: 10px;
+}
 /* form */
 .form-fields {
   display: flex;
@@ -304,3 +321,17 @@ body {
   softBlack: '#2B2B2B',
   mustard: '#D9A441',
   bodegaGreen: '#3F6B4B', */
+
+@media (max-width: 600px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .login-link {
+    position: static;
+    transform: none;
+    align-self: center;
+  }
+}
