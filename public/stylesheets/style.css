@@ -237,6 +237,19 @@ a.main-links[aria-current="page"] {
 
 /* ── Add / Edit Item Form ── */
 
+.create-new-title {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.form-title {
+  font-family: "bebas";
+  font-size: 28px;
+  margin-top: 6px;
+  line-height: 0.6;
+}
 .form-fields {
   display: flex;
   flex-direction: row;
@@ -454,8 +467,13 @@ a.main-links[aria-current="page"] {
   gap: 25px;
 }
 
+.item-info dt {
+  margin-top: 10px;
+}
+
 .item-price-details dt,
-.item-meta-details dt {
+.item-meta-details dt,
+.item-description-details dt {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -472,12 +490,15 @@ a.main-links[aria-current="page"] {
 .item-meta-details {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .item-meta-details dd {
   font-size: 1rem;
   margin: 0;
+}
+
+.item-description-details {
+  max-width: 45%;
 }
 
 /* ── Hover States ── */

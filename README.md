@@ -6,7 +6,7 @@ A full-stack inventory management application for a corner store (bodega), built
 
 ## Screenshot
 
-> _Screenshot placeholder — add a screenshot of the homepage here_
+![App screenshot](public/images/screenshot.jpg)
 
 ---
 
@@ -27,17 +27,17 @@ A full-stack inventory management application for a corner store (bodega), built
 
 ## Tech Stack
 
-| Layer | Technology |
-| --- | --- |
-| Runtime | Node.js |
-| Framework | Express 5.x |
-| Database | PostgreSQL |
-| DB Client | node-postgres (`pg`) |
-| Templating | EJS 5.x |
-| Validation | express-validator |
-| Auth | express-session, bcrypt |
-| Security | helmet, express-rate-limit |
-| Utilities | dotenv, method-override |
+| Layer         | Technology                     |
+| ------------- | ------------------------------ |
+| Runtime       | Node.js                        |
+| Framework     | Express 5.x                    |
+| Database      | PostgreSQL                     |
+| DB Client     | node-postgres (`pg`)           |
+| Templating    | EJS 5.x                        |
+| Validation    | express-validator              |
+| Auth          | express-session, bcrypt        |
+| Security      | helmet, express-rate-limit     |
+| Utilities     | dotenv, method-override        |
 | Module System | ES Modules (`import`/`export`) |
 
 ---
@@ -152,12 +152,12 @@ SESSION_SECRET=a_long_random_string_here
 PORT=3000
 ```
 
-| Variable | Description |
-| --- | --- |
-| `DB_CONNECTION` | PostgreSQL connection string |
-| `ADMIN_PASSWORD_HASH` | bcrypt hash of the admin password |
-| `SESSION_SECRET` | Secret used to sign the session cookie |
-| `PORT` | Port to run the server on (optional, defaults to `3000`) |
+| Variable              | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `DB_CONNECTION`       | PostgreSQL connection string                             |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash of the admin password                        |
+| `SESSION_SECRET`      | Secret used to sign the session cookie                   |
+| `PORT`                | Port to run the server on (optional, defaults to `3000`) |
 
 ### 6. Seed the database
 
@@ -179,19 +179,19 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Routes Reference
 
-| Method | Path | Auth Required | Description |
-| --- | --- | --- | --- |
-| `GET` | `/` | No | Homepage — all categories |
-| `GET` | `/login` | No | Login page |
-| `POST` | `/login` | No | Submit login credentials |
-| `POST` | `/` | No | Logout |
-| `GET` | `/category/:id` | No | All items in a category |
-| `GET` | `/items` | No | All items |
-| `POST` | `/items/new` | Yes | Submit new item |
-| `GET` | `/items/:id` | No | Item detail page |
-| `GET` | `/items/:id/confirmDeleteItem` | Yes | Delete confirmation dialog |
-| `POST` | `/items/:id/deleteItem` | Yes | Delete item |
-| `POST` | `/items/:id/edit` | Yes | Update item |
+| Method | Path                           | Auth Required | Description                |
+| ------ | ------------------------------ | ------------- | -------------------------- |
+| `GET`  | `/`                            | No            | Homepage — all categories  |
+| `GET`  | `/login`                       | No            | Login page                 |
+| `POST` | `/login`                       | No            | Submit login credentials   |
+| `POST` | `/`                            | No            | Logout                     |
+| `GET`  | `/category/:id`                | No            | All items in a category    |
+| `GET`  | `/items`                       | No            | All items                  |
+| `POST` | `/items/new`                   | Yes           | Submit new item            |
+| `GET`  | `/items/:id`                   | No            | Item detail page           |
+| `GET`  | `/items/:id/confirmDeleteItem` | Yes           | Delete confirmation dialog |
+| `POST` | `/items/:id/deleteItem`        | Yes           | Delete item                |
+| `POST` | `/items/:id/edit`              | Yes           | Update item                |
 
 **Sorting** is supported on list views via query parameters:
 
@@ -237,17 +237,50 @@ DB_CONNECTION=your_render_db_connection_string node db/populatedb.js
 
 ## Learning Outcomes
 
-This project was built to practice:
+This project was built to practice and deepen understanding across the full stack:
+
+### Backend & Architecture
 
 - **RESTful routing** with Express — organizing routes by resource and HTTP method
+- **MVC architecture** — separating routing, business logic, and data access into distinct layers
 - **Relational database design** — modeling many-to-many relationships with a junction table
-- **SQL with node-postgres** — writing raw parameterized queries and managing a connection pool
-- **Server-side form validation** — using express-validator with custom error messages and re-rendered forms
-- **MVC architecture** — separating routing, business logic, and data access concerns
-- **EJS templating** — rendering dynamic HTML with partials for reusable components
-- **Session-based authentication** — login/logout with express-session, bcrypt password hashing, and auth middleware
-- **Web security fundamentals** — SQL injection prevention, XSS protection, open redirect defense, security headers, and rate limiting
-- **User experience details** — redirect-back navigation, placeholder images, and sort controls
+- **SQL with node-postgres** — writing raw parameterized queries, managing a connection pool, and understanding why parameterization prevents SQL injection
+- **Server-side form validation** — using express-validator with custom error messages, re-rendered forms that preserve user input, and context-aware error handling across multiple page types
+- **EJS templating** — rendering dynamic HTML with reusable partials, conditional rendering, and passing data from controllers to views
+
+### Security
+
+- **Session-based authentication** — login/logout with express-session, bcrypt password hashing, and auth middleware that gates all mutating routes
+- **Web security fundamentals** — SQL injection prevention, XSS protection via EJS auto-escaping, open redirect defense, security headers with helmet, and rate limiting on sensitive endpoints
+- **Security auditing** — learned to think through attack surfaces: what can an unauthenticated user do, what data is exposed, where is user input trusted without validation
+- **CSRF awareness** — understanding cross-site request forgery and the tradeoffs of session cookie configuration
+
+### Accessibility (WCAG)
+
+- **Landmark regions** — using semantic HTML (`<main>`, `<header>`, `<nav>`, `<footer>`) so screen readers can navigate by structure
+- **Skip navigation** — visually-hidden skip links that appear on focus for keyboard users
+- **Focus management** — moving keyboard focus to the edit form when it appears, and styling `:focus-visible` states on all interactive elements
+- **ARIA attributes** — `role="alert"` for form errors, `aria-current="page"` for active nav links, `aria-describedby` for associating error messages with form fields, `aria-label` for icon-only elements
+- **Heading hierarchy** — understanding that headings create a navigable page outline and must nest in order
+- **Table accessibility** — `scope="col"` on header cells, meaningful alt text on sort icons
+- **Semantic HTML** — using `<dl>`, `<dt>`, `<dd>` for label/value pairs instead of headings, and understanding when an element's tag matters beyond its visual appearance
+- **Keyboard navigation** — tabbing through the entire app to experience it as a keyboard user, and understanding the difference between hover and focus
+
+### CSS & Frontend
+
+- **CSS architecture** — organizing a stylesheet into logical sections, establishing consistent naming conventions, and consolidating duplicate rules into shared base classes
+- **CSS specificity** — debugging why a selector wasn't applying and understanding how the cascade resolves conflicts
+- **Hover and focus states** — building a consistent interactive design language using a defined color palette
+- **CSS Grid and Flexbox** — laying out complex components like the table name cell and the sticky header
+- **Attribute selectors** — using `[aria-current="page"]` as both an accessibility signal and a CSS hook, keeping markup and style in sync without extra classes
+- **EJS and CSS debugging** — tracing rendering bugs from the browser back through the template to the controller, understanding how `<%= %>` vs `<%- %>` affects output
+
+### Developer Mindset
+
+- **Reading errors carefully** — tracing stack traces back to root causes rather than guessing at fixes
+- **Thinking in contexts** — the same form renders in three different page contexts; handling all of them correctly required understanding the full data flow
+- **Incremental testing** — working through form behavior systematically across all screens and submission states
+- **Code as communication** — class names, function names, and file structure communicate intent to future readers
 
 ---
 

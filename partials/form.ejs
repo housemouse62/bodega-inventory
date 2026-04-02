@@ -5,7 +5,12 @@
   <input type="hidden" name="from" value="<%= locals.currentPath || '/' %>" />
   <input type="hidden" name="fromName" value="<%= locals.fromName || '' %>" />
   <input type="hidden" name="fromFrom" value="<%= locals.from || '/' %>" />
+ 
   <div class="form-fields">
+    <div class="create-new-title">
+      <h1 class="form-title">Create</h1>
+      <h1 class="form-title">New Item</h1>
+    </div>
     <div class="form-field">
       <label for="name">Name</label>
       <input
@@ -67,7 +72,7 @@
     </div>
     <div class="form-field">
       <button class="form-button">
-        <%= locals.editItem? 'Update' : 'Submit' %>
+        <%= locals.editItem? 'Update' : 'Create New' %>
       </button>
     </div>
   </div>
