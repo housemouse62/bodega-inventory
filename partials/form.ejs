@@ -3,6 +3,8 @@
   action="<%= locals.editItem ? `/items/${locals.editItem.item_id}/edit` : '/items/new' %>"
 >
   <input type="hidden" name="from" value="<%= locals.currentPath || '/' %>" />
+  <input type="hidden" name="fromName" value="<%= locals.fromName || '' %>" />
+  <input type="hidden" name="fromFrom" value="<%= locals.from || '/' %>" />
   <div class="form-fields">
     <div class="form-field">
       <label for="name">Name</label>

@@ -1,3 +1,15 @@
+/* ============================================================
+   BODEGA INVENTORY — STYLESHEET
+   Colors:
+     bodegaRed:   #C43A2F
+     cream:       #F4E9D8
+     softBlack:   #2B2B2B
+     mustard:     #D9A441
+     bodegaGreen: #3F6B4B
+   ============================================================ */
+
+/* ── Fonts ── */
+
 @font-face {
   font-family: "bebas";
   src: url("/fonts/BebasNeue-Regular.ttf");
@@ -17,6 +29,8 @@
   font-weight: 100 900;
 }
 
+/* ── Reset ── */
+
 * {
   margin: 0;
   padding: 0;
@@ -24,12 +38,25 @@
   font-family: "inter";
 }
 
+*:focus {
+  outline: none;
+}
+
+/* ── Base ── */
+
 body {
   background-color: #f4e9d8;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Skip Link ── */
 
 .skip-link {
   position: absolute;
@@ -46,7 +73,11 @@ body {
 
 .skip-link:focus {
   top: 0;
+  outline: 2px solid #d9a441;
+  outline-offset: 3px;
 }
+
+/* ── Header ── */
 
 .main-header {
   display: flex;
@@ -76,12 +107,33 @@ body {
   width: 100%;
 }
 
+/* ── Navigation ── */
+
 .main-nav {
   display: flex;
   justify-content: center;
   gap: 20px;
   position: relative;
 }
+
+.main-links {
+  text-decoration: none;
+  color: inherit;
+  font-family: "bebas";
+  font-size: 28px;
+}
+
+.open-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.main-links[aria-current="page"] {
+  color: #d9a441;
+  border-bottom: 2px solid #d9a441;
+}
+
+/* ── Login / Logout Widget ── */
 
 .login-link {
   display: flex;
@@ -145,26 +197,46 @@ body {
     border-color 0.15s ease;
 }
 
-.auth-page {
-  padding: 2rem;
+/* ── Buttons ── */
+
+.form-button {
+  height: 25px;
+  padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
-.auth-form {
-  margin-top: 1rem;
-  width: 15rem;
+/* Shared base for edit and delete action buttons */
+.item-action-button {
+  text-decoration: none;
+  color: inherit;
+  font-size: 13.33px;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 4px 6px;
+  background-color: #efefef;
+  width: fit-content;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
-.auth-label {
-  margin-top: 10px;
+.edit-item-button {
+  grid-column: 2;
 }
 
-.auth-input {
-  margin-bottom: 10px;
+.confirm-button {
+  margin-top: 15px;
 }
-.auth-button {
-  margin-top: 10px;
-}
-/* form */
+
+/* ── Add / Edit Item Form ── */
+
 .form-fields {
   display: flex;
   flex-direction: row;
@@ -187,18 +259,6 @@ body {
   border-radius: 5px;
 }
 
-.form-button {
-  height: 25px;
-  padding: 0 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-
 .error-list {
   font-size: 12px;
   gap: 10px;
@@ -209,30 +269,47 @@ body {
   padding: 5px;
 }
 
-.main-links {
-  text-decoration: none;
-  color: inherit;
-  font-family: "bebas";
-  font-size: 28px;
+/* ── Login Page ── */
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.open-link {
-  text-decoration: none;
-  color: inherit;
+.auth-page {
+  padding: 2rem;
 }
+
+.auth-form {
+  margin-top: 1rem;
+  width: 15rem;
+}
+
+.auth-label {
+  margin-top: 10px;
+}
+
+.auth-input {
+  margin-bottom: 10px;
+}
+
+.auth-button {
+  margin-top: 10px;
+}
+
+/* ── Homepage — Category Grid ── */
 
 .index-title {
   font-family: "bebas";
   font-size: 3rem;
 }
 
-.main-div {
+.page-main {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* All Category Page */
 .category-grid {
   display: grid;
   padding: 1.5rem;
@@ -250,12 +327,21 @@ body {
   min-height: 15rem;
 }
 
+.category-card .open-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .category-image {
   height: 13rem;
 }
 
-/* Individual Category Page */
-.category-div {
+/* ── Category / All Items Page ── */
+
+.items-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -266,7 +352,11 @@ body {
   margin-bottom: 10px;
 }
 
-/* table */
+.back-to-link {
+  margin-left: 40px;
+}
+
+/* ── Table ── */
 
 .sort-icon {
   height: 25px;
@@ -282,24 +372,25 @@ body {
   width: 90%;
 }
 
-/* Item Image Column */
+/* Image column */
 .items-table th:nth-child(1),
 .items-table td:nth-child(1) {
   width: 50px;
 }
-/* Size Column */
+
+/* Size column */
 .items-table th:nth-child(3),
 .items-table td:nth-child(3) {
   width: 100px;
 }
 
-/* Price Columns */
+/* Price column */
 .items-table th:nth-child(4),
 .items-table td:nth-child(4) {
   width: 80px;
 }
 
-/* Stock Column */
+/* Stock column */
 .items-table th:nth-child(5),
 .items-table td:nth-child(5) {
   width: 80px;
@@ -317,7 +408,7 @@ body {
   font-weight: bold;
 }
 
-.th-inner {
+.column-header-inner {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -339,24 +430,9 @@ body {
   color: inherit;
 }
 
-.edit-item-button {
-  text-decoration: none;
-  color: inherit;
-  font-size: 13.33px;
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 4px 6px;
-  background-color: #efefef;
-  width: fit-content;
-  grid-column: 2;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-/* individual item view */
+/* ── Individual Item Page ── */
 
-.item-div {
+.item-main {
   display: flex;
   flex-direction: column;
 }
@@ -364,10 +440,6 @@ body {
 .item-overview {
   display: flex;
   padding: 50px 40px;
-}
-
-.back-to-link {
-  margin-left: 40px;
 }
 
 .item-image-large {
@@ -381,95 +453,78 @@ body {
   gap: 25px;
 }
 
-.delete-button {
-  text-decoration: none;
-  color: inherit;
-  font-size: 13.33px;
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 4px 6px;
-  background-color: #efefef;
-  width: fit-content;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+.item-price-details dt,
+.item-meta-details dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2b2b2b;
+  opacity: 0.6;
 }
 
-.confirm {
-  margin-top: 15px;
+.item-price-details dd {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-footer {
+.item-meta-details {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
 }
-/* bodegaRed: '#C43A2F',
-  cream: '#F4E9D8',
-  softBlack: '#2B2B2B',
-  mustard: '#D9A441',
-  bodegaGreen: '#3F6B4B', */
+
+.item-meta-details dd {
+  font-size: 1rem;
+  margin: 0;
+}
 
 /* ── Hover States ── */
 
-/* Nav links */
 .main-links:hover,
 .login-nav-link:hover {
   color: #d9a441;
 }
 
-/* Category cards */
 .category-card:hover {
   border-color: #d9a441;
   background-color: #fdf5e8;
 }
 
-/* Item name links in table */
 .item-name:hover {
   color: #d9a441;
 }
 
-/* Edit item button */
-.edit-item-button:hover {
+.item-action-button:hover {
   background-color: #d9a441;
   border-color: #d9a441;
   color: white;
 }
 
-/* Delete / confirm delete button */
 .delete-button:hover {
   background-color: #c43a2f;
   border-color: #c43a2f;
   color: white;
 }
 
-/* Generic form submit buttons */
 .form-button:hover {
   background-color: #d9a441;
   border-color: #d9a441;
   color: white;
 }
 
-/* Logout button — darken the red */
 .logout-button:hover {
   background-color: #a82e24;
   border-color: #a82e24;
 }
 
-/* Sort icons */
 .sort-icon:hover {
   background-color: #d9a441;
   border-color: #d9a441;
 }
 
-/* -- Focus Styles -- */
+/* ── Focus States ── */
 
-/* Remove default outline */
-*:focus {
-  outline: none;
-}
-
-/* Nav Links */
 .main-links:focus-visible,
 .login-nav-link:focus-visible {
   color: #d9a441;
@@ -478,16 +533,13 @@ footer {
   border-radius: 3px;
 }
 
-/* All buttons */
 .form-button:focus-visible,
 .logout-button:focus-visible,
-.edit-item-button:focus-visible,
-.delete-button:focus-visible {
+.item-action-button:focus-visible {
   outline: 2px solid #d9a441;
   outline-offset: 3px;
 }
 
-/* Item name links in table */
 .item-name:focus-visible {
   color: #d9a441;
   outline: 2px solid #d9a441;
@@ -495,29 +547,16 @@ footer {
   border-radius: 3px;
 }
 
-/* Sort icons */
 .sort-icon:focus-visible {
   outline: 2px solid #d9a441;
   outline-offset: 2px;
 }
 
-/* Skip link — already appears on focus, but give it a ring too */
-.skip-link:focus {
-  outline: 2px solid #d9a441;
-  outline-offset: 3px;
-  top: 0;
-}
-
-/* Category cards */
 .category-card:focus-within {
   border-color: #d9a441;
 }
 
-/* Active nav link */
-a.main-links[aria-current="page"] {
-  color: #d9a441;
-  border-bottom: 2px solid #d9a441;
-}
+/* ── Media Queries ── */
 
 @media (max-width: 600px) {
   .main-nav {

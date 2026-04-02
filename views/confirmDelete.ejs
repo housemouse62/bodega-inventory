@@ -23,7 +23,7 @@
         </div>
       </div>
     </header>
-    <main id="main-content" class="item-div">
+    <main id="main-content" class="item-main">
       <span class="back-to-link"
         ><a href="<%= from %>">Back to <%= categoryName %></a></span
       >
@@ -41,7 +41,7 @@
             action="/items/<%= item[0].item_id %>/deleteItem?from=<%= from %>&categoryName=<%= categoryName || '' %>"
           >
             <br />
-            <button type="submit" class="form-button confirm">Confirm</button>
+            <button type="submit" class="form-button confirm-button">Confirm</button>
           </form>
           <%- include("../partials/passwordErrors.ejs") %>
         </div>

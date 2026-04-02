@@ -20,23 +20,23 @@
     </header>
           <span class="back-to-link"><a href="/">Back to Categories</a></span>
 
-    <main id="main-content" class="category-div">
+    <main id="main-content" class="items-container">
       <h1>All Items</h1>
       <table class="items-table">
             <thead>
               <tr>
-                <th></th>
-                <th><span class="th-inner">Name<a href="/items/?sort=name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/items/?sort=name&order=DESC"><img class="sort-icon" src="/icons/sort-alph-desc.svg" alt="Sort by Name, Z to A"></a></span></th>
-                <th><span class="th-inner">Size</span></th>
-                <th><span class="th-inner">Price<a href="/items/?sort=price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/items/?sort=price&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg" alt="Sort by Price, high to low"></a></span></th>
-                <th><span class="th-inner">Stock<a href="/items/?sort=stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/items/?sort=stock&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg" alt="Sort by Stock, high to low"></a></span></th>
+                <th scope="col" aria-label="Product image"></th>
+                <th><span class="column-header-inner">Name<a href="/items/?sort=name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/items/?sort=name&order=DESC"><img class="sort-icon" src="/icons/sort-alph-desc.svg" alt="Sort by Name, Z to A"></a></span></th>
+                <th><span class="column-header-inner">Size</span></th>
+                <th><span class="column-header-inner">Price<a href="/items/?sort=price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/items/?sort=price&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg" alt="Sort by Price, high to low"></a></span></th>
+                <th><span class="column-header-inner">Stock<a href="/items/?sort=stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/items/?sort=stock&order=DESC"><img class="sort-icon" src="/icons/sort-desc.svg" alt="Sort by Stock, high to low"></a></span></th>
               </tr>
             </thead>
             <tbody>
                 <% items.forEach((item) => { %>
                   <tr class="item-row">
                     <td><a class='open-link' href="/items/<%= item.id %>?from=/items&fromName=All Items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
-                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items&fromName=All Items"><%= item.name %></a><a class="edit-item-button" href="?edit=<%= item.id %>">Edit Item</a></div></td>
+                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items&fromName=All Items"><%= item.name %></a><a class="item-action-button edit-item-button" href="/items?edit=<%= item.id %>">Edit Item</a></div></td>
                     <td><%= item.size %></td>
                     <td>$<%= item.price %></td>
                     <td><%= item.stock %></td>

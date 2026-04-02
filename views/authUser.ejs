@@ -30,7 +30,7 @@
         method="POST"
         action="/login?from=<%= locals.from || '/' %>"
       >
-        <div class="item-div">
+        <div class="form-input-group">
           <label for="username">User Name</label>
           <input
             type="text"
@@ -39,7 +39,7 @@
             value="<%= locals.username || '' %>"
           />
         </div>
-        <div class="item-div">
+        <div class="form-input-group">
           <label class="auth-label" for="password">Password</label>
           <input
             class="auth-input"

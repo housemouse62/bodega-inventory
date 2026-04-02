@@ -116,6 +116,7 @@ const addItem = [
           items,
           categoryID,
           categoryName,
+          fromName: categoryName,
           currentPath: from,
         });
       }
@@ -140,17 +141,47 @@ const updateItem = [
     const itemID = req.params.id;
     const formErrors = validationResult(req);
     if (!formErrors.isEmpty()) {
-      const items = await db.getAllCategoryItems(req.body.from.split("/")[2]);
-      const categoryName = items[0].category_name;
       const editItem = await db.getItemDetails(itemID);
-      return res.status(400).render("categoryPage", {
+      const from = req.body.from || "/";
+      const errorPayload = {
         formErrors: formErrors.array(),
         formData: req.body,
         editItem: editItem[0],
+        currentPath: from,
+      };
+
+      if (from.startsWith("/category/")) {
+        const categoryID = from.split("/")[2];
+        const items = await db.getAllCategoryItems(categoryID);
+        const categoryName = items[0].category_name;
+        return res.status(400).render("categoryPage", {
+          ...errorPayload,
+          title: `All ${categoryName} Items`,
+          items,
+          categoryID,
+          categoryName,
+          fromName: categoryName,
+        });
+      }
+
+      if (from.startsWith("/items/")) {
+        const items = await db.getItemDetails(itemID);
+        const fromName = req.body.fromName || "";
+        return res.status(400).render("itemPage", {
+          ...errorPayload,
+          title: editItem[0].item_name,
+          items,
+          from: req.body.fromFrom || "/",
+          fromName,
+          loginFrom: encodeURIComponent(from),
+        });
+      }
+
+      const items = await db.getAllItems();
+      return res.status(400).render("allItemsPage", {
+        ...errorPayload,
+        title: "All Items",
         items,
-        categoryID: req.body.from.split("/")[2],
-        categoryName,
-        currentPath: req.body.from,
       });
     }
 

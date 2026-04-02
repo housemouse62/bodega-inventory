@@ -20,23 +20,23 @@
     </header>
     <main id="main-content">
       <span class="back-to-link"><a href="/">Back to Categories</a></span>
-      <div class="category-div">
+      <div class="items-container">
         <h1 class="items-title"><%= items[0].category_name %></h1>
           <table class="items-table">
             <thead>
               <tr>
                 <th scope="col" aria-label="Product image"></th>
-                <th scope="col"><span class="th-inner">Name<a href="/category/<%= items[0].category_id %>?sort=item_name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/category/<%= items[0].category_id %>?sort=item_name&order=DESC" alt="Sort by name, Z to A"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
-                <th scope="col"><span class="th-inner">Size</span></th>
-                <th scope="col"><span class="th-inner">Price<a href="/category/<%= items[0].category_id %>?sort=item_price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_price&order=DESC" alt="Sort by price, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
-                <th scope="col"><span class="th-inner">Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_stock&order=DESC" alt="Sort by stock, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th scope="col"><span class="column-header-inner">Name<a href="/category/<%= items[0].category_id %>?sort=item_name&order=ASC"><img class="sort-icon" src="/icons/sort-alph-asc.svg" alt="Sort by name, A to Z"></a><a href="/category/<%= items[0].category_id %>?sort=item_name&order=DESC" alt="Sort by name, Z to A"><img class="sort-icon" src="/icons/sort-alph-desc.svg"></a></span></th>
+                <th scope="col"><span class="column-header-inner">Size</span></th>
+                <th scope="col"><span class="column-header-inner">Price<a href="/category/<%= items[0].category_id %>?sort=item_price&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by price, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_price&order=DESC" alt="Sort by price, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
+                <th scope="col"><span class="column-header-inner">Stock<a href="/category/<%= items[0].category_id %>?sort=item_stock&order=ASC"><img class="sort-icon" src="/icons/sort-asc.svg" alt="Sort by stock, low to high"></a><a href="/category/<%= items[0].category_id %>?sort=item_stock&order=DESC" alt="Sort by stock, high to low"><img class="sort-icon" src="/icons/sort-desc.svg"></a></span></th>
               </tr>
             </thead>
             <tbody>
               <% items.forEach((item) => { %>
                 <tr class="item-row">
                   <td><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><img class="item-image fallback" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>"></a></td>
-                  <td><div class="name-cell"><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><%= item.item_name %></a><a class="edit-item-button" href="?edit=<%= item.item_id %>">Edit Item</a></div></td>
+                  <td><div class="name-cell"><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><%= item.item_name %></a><a class="item-action-button edit-item-button" href="/category/<%= categoryID %>?edit=<%= item.item_id %>">Edit Item</a></div></td>
                   <td><%= item.item_size %></td>
                   <td>$<%= item.item_price %></td>
                   <td><%= item.item_stock %></td>
