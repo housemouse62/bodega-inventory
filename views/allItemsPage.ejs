@@ -35,8 +35,8 @@
             <tbody>
                 <% items.forEach((item) => { %>
                   <tr class="item-row">
-                    <td><a class='open-link' href="/items/<%= item.id %>?from=/items&fromName=All Items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
-                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items&fromName=All Items"><%= item.name %></a><a class="item-action-button edit-item-button" href="/items?edit=<%= item.id %>">Edit Item</a></div></td>
+                    <td class="thumbnail-cell"><a class='open-link' href="/items/<%= item.id %>?from=/items&fromName=All Items"><img class="item-image fallback" src="/images/<%= item.image_url %>" alt="<%= item.name %>"></a></td>
+                    <td><div class="name-cell"><a class="item-name" href="/items/<%= item.id %>?from=/items&fromName=All Items"><%= item.name %></a><a class="item-action-button details-button" href="/items/<%= item.id %>?from=/items&fromName=All Items">Details</a><a class="item-action-button edit-item-button" href="/items?edit=<%= item.id %>">Edit Item</a><a class="item-action-button delete-button" href="/items/<%= item.id %>/confirmDeleteItem?from=/items&categoryName=All Items">Delete</a></div></td>
                     <td><%= item.size %></td>
                     <td>$<%= item.price %></td>
                     <td><%= item.stock %></td>

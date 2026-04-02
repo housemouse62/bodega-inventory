@@ -35,8 +35,8 @@
             <tbody>
               <% items.forEach((item) => { %>
                 <tr class="item-row">
-                  <td><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><img class="item-image fallback" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>"></a></td>
-                  <td><div class="name-cell"><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><%= item.item_name %></a><a class="item-action-button edit-item-button" href="/category/<%= categoryID %>?edit=<%= item.item_id %>">Edit Item</a></div></td>
+                  <td class="thumbnail-cell"><a class='open-link' href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><img class="item-image fallback" src="/images/<%= item.item_url %>" alt="<%= item.item_name %>"></a></td>
+                  <td><div class="name-cell"><a class="item-name" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>"><%= item.item_name %></a><a class="item-action-button details-button" href="<%= `/items/${item.item_id}`%>?from=/category/<%= categoryID %>&fromName=<%= fromName %>">Details</a><a class="item-action-button edit-item-button" href="/category/<%= categoryID %>?edit=<%= item.item_id %>">Edit Item</a><a class="item-action-button delete-button" href="/items/<%= item.item_id %>/confirmDeleteItem?from=/category/<%= categoryID %>&categoryName=<%= fromName %>">Delete</a></div></td>
                   <td><%= item.item_size %></td>
                   <td>$<%= item.item_price %></td>
                   <td><%= item.item_stock %></td>

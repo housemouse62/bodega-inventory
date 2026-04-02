@@ -227,8 +227,8 @@ a.main-links[aria-current="page"] {
     color 0.15s ease;
 }
 
-.edit-item-button {
-  grid-column: 2;
+.details-button {
+  background-color: #e8e8e8;
 }
 
 .confirm-button {
@@ -421,8 +421,9 @@ a.main-links[aria-current="page"] {
 
 .name-cell {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto auto auto;
   align-items: center;
+  gap: 6px;
 }
 
 .item-name {
@@ -480,6 +481,14 @@ a.main-links[aria-current="page"] {
 }
 
 /* ── Hover States ── */
+
+.thumbnail-cell {
+  transition: background-color 0.15s ease;
+}
+
+.thumbnail-cell:hover {
+  background-color: #d9a441;
+}
 
 .main-links:hover,
 .login-nav-link:hover {
