@@ -209,17 +209,20 @@ See [SECURITY.md](SECURITY.md) for a full breakdown of protections in place and 
 
 ## Deployment
 
-### Deploying to Render
+### Deploying to Railway
 
 1. Push your code to GitHub
-2. Create a new **Web Service** on [Render](https://render.com) and connect your repo
-3. Add a **PostgreSQL** database instance on Render
-4. Set environment variables in the Render dashboard (`DB_CONNECTION`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`)
-5. Set the start command to `node app.js`
-6. After the service is live, run the seed script against your production database:
+2. Create a new project on [Railway](https://railway.app) and connect your repo — Railway will auto-detect Node.js
+3. In your project, add a **PostgreSQL** database: **New > Database > PostgreSQL**
+4. In your web service's **Variables** tab, add:
+   - `DB_CONNECTION` — set to `${{Postgres.DATABASE_URL}}` (Railway injects this from the database service)
+   - `ADMIN_PASSWORD_HASH` — your bcrypt hash
+   - `SESSION_SECRET` — a long random string
+5. Set the start command to `node app.js` under **Settings > Deploy**
+6. After the service is live, seed the database using the Railway CLI:
 
 ```bash
-DB_CONNECTION=your_render_db_connection_string node db/populatedb.js
+railway run node db/populatedb.js
 ```
 
 ---
