@@ -1,6 +1,10 @@
 import { Client } from "pg";
 
 const SQL = `
+DROP TABLE IF EXISTS item_categories;
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS categories;
+
 CREATE TABLE IF NOT EXISTS categories (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 name VARCHAR ( 255 )

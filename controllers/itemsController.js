@@ -124,7 +124,7 @@ const addItem = [
       const categories = await db.getAllCategories();
       return res.status(400).render("index", {
         ...formErrorPayload,
-        title: "All Categories",
+        title: "Everybody's Bodega",
         categories,
         currentPath: from,
       });

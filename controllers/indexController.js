@@ -5,14 +5,17 @@ import bcrypt from "bcrypt";
 async function viewAllCategoriesGet(req, res) {
   const categories = await db.getAllCategories();
   res.render("index", {
-    title: "All Categories",
+    title: "Everybody's Bodega",
     categories: categories,
     currentPath: req.baseUrl + req.path,
   });
 }
 
 async function loginGet(req, res) {
-  res.render("authUser", { from: req.query.from || "/", currentPath: req.path });
+  res.render("authUser", {
+    from: req.query.from || "/",
+    currentPath: req.path,
+  });
 }
 
 async function loginPost(req, res) {

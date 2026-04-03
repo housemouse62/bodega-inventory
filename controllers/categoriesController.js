@@ -13,7 +13,7 @@ async function viewAllCategoryItemsGet(req, res) {
   const categoryName = items[0].category_name;
 
   res.render("categoryPage", {
-    title: `All ${categoryName}Items`,
+    title: "`All ${categoryName}Items`",
     items: items,
     categoryID: categoryID,
     fromName: categoryName,
